@@ -1,6 +1,24 @@
-Food Delivery App Developed in Flutter with GetX State management, Flutter Hooks, Firebase Firestore as backend, Firebase Storage, Firebase Authentication.
+Food Delivery App Developed in Flutter.
 
-The user can login and create an account. The user can see banners, categories, it's products and can added items to cart, remove from cart, update the quantity and place the order. The user can see it's orders listing. 
+Tech:
+- Flutter
+- GetX State management 
+- Flutter Hooks
+- Firebase Authentication
+- Firebase Firestore
+- Firebase Storage
+
+Features:
+- Login/Sign Up
+- Products View
+- Products Detail View
+- Add to Cart
+- Order Placement
+- Previous Orders View
+- Previous Order detail view
+- Profile View
+- Logout
+
 
 <img width="200" alt="Screenshot 2023-04-27 at 11 56 04 AM" src="https://user-images.githubusercontent.com/35795385/234820967-79776f2a-2850-4cd6-8012-b2b39c6515d5.png"> <img width="200" alt="Screenshot 2023-04-27 at 11 56 19 AM" src="https://user-images.githubusercontent.com/35795385/234820983-130666c3-c3fb-4ab1-93c1-d510772583e7.png"> 
 <img width="200" alt="Screenshot 2023-04-27 at 11 56 27 AM" src="https://user-images.githubusercontent.com/35795385/234820990-99829cbb-5d3b-4a9e-a51b-3dcae950ca5a.png"> <img width="200" alt="Screenshot 2023-04-27 at 12 14 53 PM" src="https://user-images.githubusercontent.com/35795385/234820994-c039e5fb-3fe6-4b12-8183-8ee65dbac0af.png">
