@@ -30,7 +30,6 @@ class LoginView extends HookWidget {
           emailController.text, passwordController.text, () {});
       if (response != null && response is UserModel) {
         final user = FirebaseAuth.instance.currentUser;
-        print('User => $user');
         if (user?.emailVerified == true) {
           EasyLoading.showSuccess(AppStrings.loginSuccess);
           Get.back(result: response);
@@ -45,50 +44,51 @@ class LoginView extends HookWidget {
     return Scaffold(
       backgroundColor: AppColors.offWhiteColor,
       body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.fromLTRB(0, 65, 0, 0),
-              child: Image.asset(
-                AppImages.appLogo,
-                width: 100,
-                height: 100,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.fromLTRB(0, 65, 0, 0),
+                child: Image.asset(
+                  AppImages.appLogo,
+                  width: 100,
+                  height: 100,
+                ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(20, 50, 20, 10),
-              child: Column(
-                children: [
-                  Container(
-                      margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                      child: AppWidgets.appFieldNew(
-                          AppStrings.email, emailController)),
-                  Obx(
-                    () => Container(
-                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: AppWidgets.appPassowrdField(AppStrings.password,
-                          passwordController, showPassword.value, () {
-                        showPassword.value = !showPassword.value;
-                      }),
+              Container(
+                margin: const EdgeInsets.fromLTRB(0, 50, 0, 10),
+                child: Column(
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: AppWidgets.appFieldNew(
+                            AppStrings.email, emailController)),
+                    Obx(
+                      () => Container(
+                        child: AppWidgets.appPassowrdField(AppStrings.password,
+                            passwordController, showPassword.value, () {
+                          showPassword.value = !showPassword.value;
+                        }),
+                      ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(20, 25, 20, 0),
-                    child: AppWidgets.appButton(
-                        AppStrings.login, () => handleLoginClick()),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 25, 0, 20),
-                    child: AppWidgets.appText(AppStrings.noAccountSignUp,
-                        isClickable: true,
-                        callBack: () =>
-                            GoNavigation.off(() => const SignUpView())),
-                  ),
-                ],
-              ),
-            )
-          ],
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(20, 25, 20, 0),
+                      child: AppWidgets.appButton(
+                          AppStrings.login, () => handleLoginClick()),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 25, 0, 20),
+                      child: AppWidgets.appText(AppStrings.noAccountSignUp,
+                          isClickable: true,
+                          callBack: () =>
+                              GoNavigation.off(() => const SignUpView())),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

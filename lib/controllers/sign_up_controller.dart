@@ -34,7 +34,7 @@ class SignUpController extends GetxController {
     }
 
     if (errorMessage != null) {
-      AppWidgets.appErrorView(Get.context, AppStrings.error, errorMessage);
+      EasyLoading.showError(errorMessage);
       return null;
     }
     return handleSignUp(name, email, password, phone, callback);

@@ -56,38 +56,35 @@ class SignUpView extends HookWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(5, 50, 5, 25),
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                child: Column(
-                  children: [
-                    AppWidgets.appFieldNew(AppStrings.name, nameController),
-                    AppWidgets.appFieldNew(AppStrings.email, emailController),
-                    AppWidgets.appFieldNewPhone(
-                        AppStrings.phone, phoneController),
-                    Obx(
-                      () => Container(
-                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        child: AppWidgets.appPassowrdField(AppStrings.password,
-                            passwordController, showPassword.value, () {
-                          showPassword.value = !showPassword.value;
-                        }),
-                      ),
+              margin: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+              child: Column(
+                children: [
+                  AppWidgets.appFieldNew(AppStrings.name, nameController),
+                  AppWidgets.appFieldNew(AppStrings.email, emailController),
+                  AppWidgets.appFieldNewPhone(
+                      AppStrings.phone, phoneController),
+                  Obx(
+                    () => Container(
+                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: AppWidgets.appPassowrdField(AppStrings.password,
+                          passwordController, showPassword.value, () {
+                        showPassword.value = !showPassword.value;
+                      }),
                     ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 25, 20, 0),
-                      child: AppWidgets.appButton(
-                          AppStrings.signUp, () => handleSignUpClick()),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(0, 25, 0, 20),
-                      child: AppWidgets.appText(AppStrings.alreadyHaveAnAccount,
-                          isClickable: true,
-                          callBack: () =>
-                              GoNavigation.off(() => const LoginView())),
-                    ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 25, 20, 0),
+                    child: AppWidgets.appButton(
+                        AppStrings.signUp, () => handleSignUpClick()),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 25, 0, 20),
+                    child: AppWidgets.appText(AppStrings.alreadyHaveAnAccount,
+                        isClickable: true,
+                        callBack: () =>
+                            GoNavigation.off(() => const LoginView())),
+                  ),
+                ],
               ),
             )
           ],

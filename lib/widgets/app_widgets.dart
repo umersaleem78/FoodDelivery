@@ -92,23 +92,21 @@ class AppWidgets {
       int maxLines = 1}) {
     return Container(
       height: 50,
-      margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
       decoration: BoxDecoration(
-          border: Border.all(color: AppColors.dividerColor, width: 1),
-          borderRadius: BorderRadius.circular(10)),
+        border: Border.all(color: AppColors.dividerColor, width: 1),
+      ),
       child: Row(
         children: [
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    bottomLeft: Radius.circular(8)),
-                color: AppColors.dividerColor),
-            alignment: Alignment.center,
-            width: 120,
-            child: Text(
-              hintText,
-              style: TextStyle(color: AppColors.offWhiteColor, fontSize: 18),
+          ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 100),
+            child: Container(
+              decoration: BoxDecoration(color: AppColors.dividerColor),
+              alignment: Alignment.center,
+              child: Text(
+                hintText,
+                style: TextStyle(color: AppColors.offWhiteColor, fontSize: 15),
+              ),
             ),
           ),
           Expanded(
@@ -191,22 +189,22 @@ class AppWidgets {
       int maxLines = 1}) {
     return Container(
       height: 50,
-      margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       decoration: BoxDecoration(
-          border: Border.all(color: AppColors.dividerColor, width: 1),
-          borderRadius: BorderRadius.circular(8)),
+        border: Border.all(color: AppColors.dividerColor, width: 1),
+      ),
       child: Row(
         children: [
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: AppColors.dividerColor),
-            alignment: Alignment.center,
-            width: 120,
-            child: Text(
-              hintText,
-              style: TextStyle(color: AppColors.offWhiteColor, fontSize: 18),
+          ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 100),
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(color: AppColors.dividerColor),
+              alignment: Alignment.center,
+              child: Text(
+                hintText,
+                style: TextStyle(color: AppColors.offWhiteColor, fontSize: 18),
+              ),
             ),
           ),
           Container(
@@ -246,22 +244,22 @@ class AppWidgets {
       int maxLines = 1}) {
     return Container(
       height: 50,
-      margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-          border: Border.all(color: AppColors.dividerColor, width: 1),
-          borderRadius: BorderRadius.circular(8)),
+        border: Border.all(color: AppColors.dividerColor, width: 1),
+      ),
       child: Row(
         children: [
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: AppColors.dividerColor),
-            alignment: Alignment.center,
-            width: 120,
-            child: Text(
-              hintText,
-              style: TextStyle(color: AppColors.offWhiteColor, fontSize: 18),
+          ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 100),
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(color: AppColors.dividerColor),
+              alignment: Alignment.center,
+              child: Text(
+                hintText,
+                style: TextStyle(color: AppColors.offWhiteColor, fontSize: 15),
+              ),
             ),
           ),
           Expanded(
