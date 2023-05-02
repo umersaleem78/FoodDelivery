@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/controllers/cart_controller.dart';
 import 'package:food_app/controllers/checkout_controller.dart';
+import 'package:food_app/controllers/email_verification_controller.dart';
 import 'package:food_app/controllers/home_controller.dart';
 import 'package:food_app/controllers/location_controller.dart';
 import 'package:food_app/controllers/login_controller.dart';
@@ -45,6 +46,7 @@ void main() async {
   Get.put(CheckoutController());
   Get.put(SettingsController());
   Get.put(OrdersController());
+  Get.put(EmailVerificationController());
   runApp(const MyApp());
 }
 

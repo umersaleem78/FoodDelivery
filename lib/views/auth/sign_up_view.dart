@@ -6,6 +6,7 @@ import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_images.dart';
 import 'package:food_app/utils/app_strings.dart';
 import 'package:food_app/utils/app_utils.dart';
+import 'package:food_app/views/auth/email_verification_view.dart';
 import 'package:food_app/views/auth/login_view.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:get/get.dart';
@@ -32,13 +33,16 @@ class SignUpView extends HookWidget {
           () {});
       if (response != null && response is UserModel) {
         AppUtils.showToast(AppStrings.signUpSuccess);
-        Get.back(result: response);
+        await controller.sendEmailVerification();
+        final args = {'data': response};
+        GoNavigation.off(() => const EmailVerificationView(), arguments: args);
       }
     }
 
     var showPassword = true.obs;
     return Scaffold(
       backgroundColor: AppColors.offWhiteColor,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: [
@@ -52,7 +56,7 @@ class SignUpView extends HookWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(20, 50, 20, 25),
+              margin: const EdgeInsets.fromLTRB(5, 50, 5, 25),
               child: Container(
                 margin: const EdgeInsets.fromLTRB(0, 25, 0, 0),
                 child: Column(

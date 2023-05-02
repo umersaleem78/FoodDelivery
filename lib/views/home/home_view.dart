@@ -327,7 +327,7 @@ class HomeView extends HookWidget {
                   child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: (.36 / .4)),
+                              crossAxisCount: 2, childAspectRatio: (.32 / .4)),
                       itemCount: currentSelectedCategoryIndex.value == -1
                           ? 0
                           : controller

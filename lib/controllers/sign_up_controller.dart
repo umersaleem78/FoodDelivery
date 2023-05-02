@@ -20,7 +20,7 @@ class SignUpController extends GetxController {
 
   Future<dynamic> validateSignUpInput(
       name, email, password, phone, callback) async {
-    var errorMessage = "";
+    String? errorMessage;
     if (name == "") {
       errorMessage = AppStrings.enterName;
     } else if (email == "") {
@@ -33,7 +33,7 @@ class SignUpController extends GetxController {
       errorMessage = AppStrings.enterPhoneNumber;
     }
 
-    if (errorMessage != '') {
+    if (errorMessage != null) {
       AppWidgets.appErrorView(Get.context, AppStrings.error, errorMessage);
       return null;
     }
@@ -41,7 +41,7 @@ class SignUpController extends GetxController {
   }
 
   Future<dynamic> handleSignUp(name, email, password, phone, callback) async {
-    var errorMessage = "";
+    String? errorMessage;
     UserModel? model;
     EasyLoading.show(status: AppStrings.loading);
     // handle sign up
@@ -69,11 +69,16 @@ class SignUpController extends GetxController {
       }
     }
     EasyLoading.dismiss();
-    if (errorMessage != "") {
+    if (errorMessage != null) {
       AppWidgets.appErrorView(Get.context, AppStrings.error, errorMessage);
       return null;
     }
     return model;
+  }
+
+  Future<dynamic> sendEmailVerification() async {
+    final user = FirebaseAuth.instance.currentUser;
+    await user?.sendEmailVerification();
   }
 
   void saveUserInfo(UserModel model) async {

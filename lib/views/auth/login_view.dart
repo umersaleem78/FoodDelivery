@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:food_app/controllers/email_verification_controller.dart';
 import 'package:food_app/controllers/login_controller.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_images.dart';
 import 'package:food_app/utils/app_strings.dart';
 import 'package:food_app/utils/go_navigation.dart';
+import 'package:food_app/views/auth/email_verification_view.dart';
 import 'package:food_app/views/auth/sign_up_view.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:get/get.dart';
@@ -26,8 +29,16 @@ class LoginView extends HookWidget {
       final response = await controller.validateLoginInput(
           emailController.text, passwordController.text, () {});
       if (response != null && response is UserModel) {
-        EasyLoading.showSuccess(AppStrings.loginSuccess);
-        Get.back(result: response);
+        final user = FirebaseAuth.instance.currentUser;
+        print('User => $user');
+        if (user?.emailVerified == true) {
+          EasyLoading.showSuccess(AppStrings.loginSuccess);
+          Get.back(result: response);
+        } else {
+          final args = {'data': response};
+          GoNavigation.off(() => const EmailVerificationView(),
+              arguments: args);
+        }
       }
     }
 

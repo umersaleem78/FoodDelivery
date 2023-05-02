@@ -95,4 +95,9 @@ class AppStrings {
   static String shareApp = "Share App";
   static String appShareMessage =
       "Check this amazing food delivery app \n\nFoodDeliveryApp";
+  static String emailVerificationTitle = "We have sent an email to";
+  static String emailVerificationMessage = "Please verify your email address";
+  static String resend = "Resend";
+  static String verificationEmailSent =
+      "Verification email has been sent. Please check your email";
 }
