@@ -210,10 +210,8 @@ class AppWidgets {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 5),
             alignment: Alignment.center,
-            child: Text(
-              "+92",
-              style: TextStyle(color: AppColors.colorGrey, fontSize: 14),
-            ),
+            child: appTextWithoutClick("+92",
+                color: AppColors.dividerColor, fontSize: 14, isBold: true),
           ),
           Expanded(
             child: Padding(
@@ -286,40 +284,6 @@ class AppWidgets {
           ),
         ],
       ),
-    );
-  }
-
-  static Widget appFieldWithNoBg(
-      String hintText, TextEditingController controller,
-      {double fontSize = 15,
-      Color textColor = Colors.white,
-      TextInputAction action = TextInputAction.done,
-      bool isPasswordField = false,
-      TextInputType inputType = TextInputType.text,
-      String? prefixText,
-      bool showSuffixIcon = false}) {
-    return TextField(
-      controller: controller,
-      cursorColor: AppColors.primaryDarkColor,
-      textInputAction: action,
-      obscureText: isPasswordField,
-      keyboardType: inputType,
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: null == prefixText
-              ? null
-              : Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: appText(prefixText,
-                      isBold: true,
-                      color: AppColors.offWhiteColor,
-                      fontSize: fontSize)),
-          prefixIconConstraints:
-              const BoxConstraints(minWidth: 0, minHeight: 0),
-          isDense: true,
-          hintText: hintText),
-      style: TextStyle(
-          fontSize: fontSize, fontWeight: FontWeight.bold, color: textColor),
     );
   }
 
