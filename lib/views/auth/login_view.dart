@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:food_app/controllers/email_verification_controller.dart';
 import 'package:food_app/controllers/login_controller.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_images.dart';
@@ -63,7 +62,8 @@ class LoginView extends HookWidget {
                     Container(
                         margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                         child: AppWidgets.appFieldNew(
-                            AppStrings.email, emailController)),
+                            AppStrings.email, emailController,
+                            inputType: TextInputType.emailAddress)),
                     Obx(
                       () => Container(
                         child: AppWidgets.appPassowrdField(AppStrings.password,

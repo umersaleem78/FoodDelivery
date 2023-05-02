@@ -1,13 +1,12 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/controllers/email_verification_controller.dart';
 import 'package:food_app/utils/app_strings.dart';
-import 'package:food_app/utils/app_utils.dart';
 import 'package:food_app/widgets/app_widgets.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
 
 class EmailVerificationView extends HookWidget {

@@ -148,21 +148,20 @@ class AppWidgets {
       height: 50,
       margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
       decoration: BoxDecoration(
-          border: Border.all(color: AppColors.dividerColor, width: 1),
-          borderRadius: BorderRadius.circular(10)),
+        border: Border.all(color: AppColors.dividerColor, width: 1),
+      ),
       child: Row(
         children: [
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    bottomLeft: Radius.circular(8)),
-                color: AppColors.dividerColor),
-            alignment: Alignment.center,
-            width: 120,
-            child: Text(
-              hintText,
-              style: TextStyle(color: AppColors.offWhiteColor, fontSize: 18),
+          ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 100),
+            child: Container(
+              decoration: BoxDecoration(color: AppColors.dividerColor),
+              alignment: Alignment.center,
+              child: appText(
+                hintText,
+                fontSize: 15,
+                color: AppColors.offWhiteColor,
+              ),
             ),
           ),
           Expanded(

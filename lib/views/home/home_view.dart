@@ -184,7 +184,7 @@ class HomeView extends HookWidget {
         } else {
           currentBannerIndex.value = 0;
         }
-
+        print('Page Controller => ${pageController.hasClients}');
         if (pageController.hasClients) {
           pageController.animateToPage(currentBannerIndex.value,
               duration: const Duration(milliseconds: 350),
@@ -263,20 +263,19 @@ class HomeView extends HookWidget {
                   ],
                 ),
               ),
-              Obx(() => Container(
-                    height: 200,
-                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                    child: PageView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      controller: pageController,
-                      itemCount: controller.bannersList.value.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return fetchBannerView(
-                            controller.bannersList.value[index]);
-                      },
-                    ),
-                  )),
+              Container(
+                height: 200,
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: PageView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: pageController,
+                  itemCount: controller.bannersList.value.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return fetchBannerView(controller.bannersList.value[index]);
+                  },
+                ),
+              ),
               Obx(() => controller.bannersList.value.isNotEmpty
                   ? Container(
                       margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),

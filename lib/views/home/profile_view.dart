@@ -78,19 +78,17 @@ class ProfileView extends HookWidget {
                         radius: 50,
                       )),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+                    margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                     child: AppWidgets.appFieldWithTitle(
                         AppStrings.name, name.value,
                         isEditable: false),
                   ),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(20, 5, 20, 0),
                     child: AppWidgets.appFieldWithTitle(
                         AppStrings.email, email.value,
                         isEditable: false),
                   ),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(20, 5, 20, 0),
                     child: AppWidgets.appFieldWithTitle(
                         AppStrings.phone, phone.value,
                         isEditable: false),
