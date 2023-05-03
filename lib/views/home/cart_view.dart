@@ -49,11 +49,19 @@ class CartView extends HookWidget {
                       Container(
                           alignment: Alignment.topLeft,
                           child: AppWidgets.appText(model.name ?? "",
-                              fontSize: 20, isBold: true)),
+                              fontSize: 15, isBold: true)),
                       Container(
                           alignment: Alignment.topLeft,
                           child: AppWidgets.appText(description ?? "",
-                              fontSize: 17)),
+                              fontSize: 12,
+                              color: AppColors.secondaryTextColor)),
+                      Container(
+                          alignment: Alignment.topLeft,
+                          margin: const EdgeInsets.symmetric(vertical: 2),
+                          child: AppWidgets.appText(
+                              "${model.currency} ${model.price}",
+                              fontSize: 14,
+                              color: AppColors.secondaryTextColor)),
                       Container(
                         margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                         child: Row(
@@ -62,7 +70,7 @@ class CartView extends HookWidget {
                             Container(
                                 alignment: Alignment.topLeft,
                                 child: AppWidgets.appText(
-                                    "${model.currency} ${model.price}")),
+                                    "${model.currency} ${(model.price ?? 1) * (model.selectedQuantity ?? 1)}")),
                             Container(
                               alignment: Alignment.bottomRight,
                               child: AppWidgets.fetchIncrementDecrementCounter(

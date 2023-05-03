@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:badges/badges.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -177,7 +178,7 @@ class HomeView extends HookWidget {
 
     void startBannerTimer() {
       // auto scroll page view banners
-      timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      timer = Timer.periodic(const Duration(seconds: 5), (timer) {
         final totalBanners = controller.bannersList.length - 1;
         if (currentBannerIndex.value < totalBanners) {
           currentBannerIndex.value++;
@@ -205,7 +206,7 @@ class HomeView extends HookWidget {
         });
       }
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        startBannerTimer();
+        //startBannerTimer();
       });
       return null;
     }, []);
@@ -264,18 +265,21 @@ class HomeView extends HookWidget {
                 ),
               ),
               Container(
-                height: 200,
-                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: PageView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: pageController,
-                  itemCount: controller.bannersList.value.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return fetchBannerView(controller.bannersList.value[index]);
-                  },
-                ),
-              ),
+                  height: 200,
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: Swiper(
+                    itemBuilder: ((context, index) {
+                      return fetchBannerView(
+                          controller.bannersList.value[index]);
+                    }),
+                    itemCount: controller.bannersList.value.length,
+                    onIndexChanged: ((value) =>
+                        currentBannerIndex.value = value),
+                    autoplay: true,
+                    viewportFraction: 0.88,
+                    autoplayDelay: 7000,
+                    autoplayDisableOnInteraction: false,
+                  )),
               Obx(() => controller.bannersList.value.isNotEmpty
                   ? Container(
                       margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),

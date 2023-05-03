@@ -114,7 +114,7 @@ class OrdersView extends HookWidget {
 
     void checkLoginStatus() async {
       isUserLoggedIn.value = AppState.userModel != null;
-      if (isUserLoggedIn.value) {
+      if (isUserLoggedIn.value && ordersList.value.isEmpty) {
         final response = await fetchUserOrders();
         if (response != null) {
           ordersList.value = response;
@@ -142,7 +142,7 @@ class OrdersView extends HookWidget {
                     alignment: Alignment.topLeft,
                     child: AppWidgets.appTextWithoutClick(myOrders.value,
                         color: AppColors.primaryTextColor,
-                        fontSize: 30,
+                        fontSize: 25,
                         isBold: true),
                   ),
                   Expanded(
