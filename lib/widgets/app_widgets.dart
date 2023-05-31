@@ -11,9 +11,8 @@ class AppWidgets {
       bool isBold = false,
       bool isClickable = false,
       bool isEllipsisText = false,
-      Function? callBack}) {
-    var fontType = FontWeight.normal;
-    if (isBold) fontType = FontWeight.bold;
+      Function? callBack,
+      FontWeight fontWeight = FontWeight.w400}) {
     return InkWell(
       onTap: () {
         if (isClickable && callBack != null) {
@@ -27,7 +26,7 @@ class AppWidgets {
                 isEllipsisText ? TextOverflow.ellipsis : TextOverflow.visible,
             color: color,
             fontSize: fontSize,
-            fontWeight: fontType),
+            fontWeight: fontWeight),
       ),
     );
   }

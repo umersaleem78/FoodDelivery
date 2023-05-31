@@ -14,4 +14,8 @@ class AppColors {
   static Color lightBlueGrey = HexColor.fromHex("#cfd8dc");
   static Color secondaryTextColor = HexColor.fromHex("#757575");
   static Color dividerColor = HexColor.fromHex("#BDBDBD");
+  // new Colors
+  static Color orangeColor = HexColor.fromHex("#FE724C");
+  static Color textColor = HexColor.fromHex("#ADADAD");
+  static Color lightWhiteColor = HexColor.fromHex("#EAEAEA");
 }

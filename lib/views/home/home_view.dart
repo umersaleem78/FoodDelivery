@@ -294,9 +294,9 @@ class HomeView extends HookWidget {
                 alignment: Alignment.topLeft,
                 margin: const EdgeInsets.fromLTRB(20, 10, 0, 10),
                 child: AppWidgets.appText(AppStrings.products,
-                    fontSize: 20,
+                    fontSize: 25,
                     isBold: true,
-                    color: AppColors.primaryTextColor),
+                    color: AppColors.primaryTextColor,fontWeight: FontWeight.w600),
               ),
               Expanded(
                 child: Container(
