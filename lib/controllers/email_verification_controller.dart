@@ -10,10 +10,14 @@ class EmailVerificationController extends GetxController {
   }
 
   Future<dynamic> sendEmailVerification({bool showInfo = true}) async {
-    final user = FirebaseAuth.instance.currentUser;
-    await user?.sendEmailVerification();
-    if (showInfo) {
-      EasyLoading.showInfo(AppStrings.verificationEmailSent);
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      await user?.sendEmailVerification();
+      if (showInfo) {
+        EasyLoading.showInfo(AppStrings.verificationEmailSent);
+      }
+    } catch (e) {
+      EasyLoading.showError(AppStrings.somethingWentWrong);
     }
   }
 }

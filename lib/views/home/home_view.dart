@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'dart:async';
 import 'package:badges/badges.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -62,7 +61,7 @@ class HomeView extends HookWidget {
         color: AppColors.offWhiteColor,
         child: Container(
           margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-          child: Column(
+          child: Column(  
             children: [
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -152,14 +151,7 @@ class HomeView extends HookWidget {
     final totalCartItems = useState(0);
     final updateItemsList = false.obs;
     final currentSelectedCategoryIndex = useState(-1);
-    var currentBannerIndex = useState(0);
-
-    // ignore: unused_local_variable
-    Timer timer;
-    PageController pageController = PageController(
-      initialPage: 0,
-      viewportFraction: 0.88,
-    );
+    final currentBannerIndex = useState(0);
 
     void updateBasketNumber({bool updateCategorySelection = false}) {
       totalCartItems.value = CartState.cartItemsList.length;
@@ -174,24 +166,6 @@ class HomeView extends HookWidget {
     void updateCartView() {
       updateBasketNumber();
       updateItemsList.value = !updateItemsList.value;
-    }
-
-    void startBannerTimer() {
-      // auto scroll page view banners
-      timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-        final totalBanners = controller.bannersList.length - 1;
-        if (currentBannerIndex.value < totalBanners) {
-          currentBannerIndex.value++;
-        } else {
-          currentBannerIndex.value = 0;
-        }
-        print('Page Controller => ${pageController.hasClients}');
-        if (pageController.hasClients) {
-          pageController.animateToPage(currentBannerIndex.value,
-              duration: const Duration(milliseconds: 350),
-              curve: Curves.easeIn);
-        }
-      });
     }
 
     useEffect(() {
