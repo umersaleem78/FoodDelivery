@@ -62,8 +62,9 @@ class MyApp extends HookWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Food App',
-        theme:
-            ThemeData(fontFamily: 'Poppins',primarySwatch: const Color(0xFF512DA8).toMaterialColor()),
+        theme: ThemeData(
+            fontFamily: 'Poppins',
+            primarySwatch: const Color(0xFFFE724C).toMaterialColor()),
         home: const SplashView(),
         builder: EasyLoading.init());
   }

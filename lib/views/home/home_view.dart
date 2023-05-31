@@ -32,12 +32,23 @@ class HomeView extends HookWidget {
       onTap: () => callback(model.id),
       child: Container(
           margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-          child: AppWidgets.appTextWithoutClick(model.name ?? "",
-              color: model.isSelected
-                  ? AppColors.primaryTextColor
-                  : AppColors.secondaryTextColor,
-              fontSize: 18,
-              isBold: model.isSelected ? true : false)),
+          child: Column(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(model.image ?? ""),
+                radius: 25,
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: AppWidgets.appTextWithoutClick(model.name ?? "",
+                    color: model.isSelected
+                        ? AppColors.orangeColor
+                        : AppColors.textColor,
+                    fontSize: 12,
+                    isBold: model.isSelected ? true : false),
+              ),
+            ],
+          )),
     );
   }
 
@@ -56,12 +67,12 @@ class HomeView extends HookWidget {
         });
       },
       child: Card(
-        elevation: 2,
+        elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: AppColors.offWhiteColor,
+        color: AppColors.lightBlackColor,
         child: Container(
           margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-          child: Column(  
+          child: Column(
             children: [
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -78,24 +89,35 @@ class HomeView extends HookWidget {
                 alignment: Alignment.topLeft,
                 margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: AppWidgets.appText(model.name ?? "",
-                    fontSize: 15, isBold: true, isEllipsisText: true),
-              ),
-              Container(
-                alignment: Alignment.topLeft,
-                margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                child: AppWidgets.appText(model.quantity ?? "", fontSize: 12),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    isEllipsisText: true,
+                    color: AppColors.textColor),
               ),
               Container(
                 margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                child: AppWidgets.appText(
-                    "${model.currency ?? ""} ${model.price?.toString() ?? ""}",
-                    fontSize: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: AppWidgets.appText(
+                          "${model.currency ?? ""} ${model.price?.toString() ?? ""}",
+                          fontSize: 12,
+                          color: AppColors.lightWhiteColor),
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: AppWidgets.appText(model.quantity ?? "",
+                          fontSize: 12, color: AppColors.lightWhiteColor),
+                    ),
+                  ],
+                ),
               ),
               Obx(
                 () => isItemInCart.value
                     ? Container(
-                        margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                        alignment: Alignment.center,
+                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        alignment: Alignment.bottomRight,
                         child:
                             AppWidgets.fetchIncrementDecrementCounter((number) {
                           if (number == 0) {
@@ -199,7 +221,7 @@ class HomeView extends HookWidget {
       onVisibilityChanged: (info) =>
           updateBasketNumber(updateCategorySelection: true),
       child: Scaffold(
-        backgroundColor: AppColors.offWhiteColor,
+        backgroundColor: AppColors.blackColor,
         body: SafeArea(
           child: Column(
             children: [
@@ -213,7 +235,7 @@ class HomeView extends HookWidget {
                       child: CircleAvatar(
                         backgroundImage:
                             AssetImage(AppImages.profilePlaceholder),
-                        radius: 25,
+                        radius: 20,
                       ),
                     ),
                     totalCartItems.value > 0
@@ -222,7 +244,7 @@ class HomeView extends HookWidget {
                                 GoNavigation.to(() => const CartView()),
                             child: badges.Badge(
                               badgeStyle: badges.BadgeStyle(
-                                  badgeColor: AppColors.primaryLightColor,
+                                  badgeColor: AppColors.orangeColor,
                                   shape: BadgeShape.circle),
                               badgeContent: Text(
                                   totalCartItems.value.toString(),
@@ -230,7 +252,7 @@ class HomeView extends HookWidget {
                               child: Icon(
                                 Icons.shopping_cart,
                                 size: 30,
-                                color: AppColors.primaryTextColor,
+                                color: AppColors.lightWhiteColor,
                               ),
                             ),
                           )
@@ -239,7 +261,7 @@ class HomeView extends HookWidget {
                 ),
               ),
               Container(
-                  height: 200,
+                  height: 150,
                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                   child: Swiper(
                     itemBuilder: ((context, index) {
@@ -261,22 +283,22 @@ class HomeView extends HookWidget {
                         dotsCount: controller.bannersList.value.length,
                         position: currentBannerIndex.value.toDouble(),
                         decorator:
-                            DotsDecorator(color: AppColors.primaryLightColor),
+                            DotsDecorator(color: AppColors.lightWhiteColor),
                       ),
                     )
                   : Container()),
               Container(
-                margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                margin: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                 alignment: Alignment.topLeft,
                 child: AppWidgets.appText(AppStrings.categories,
-                    fontSize: 15,
-                    isBold: true,
-                    color: AppColors.primaryTextColor),
+                    fontSize: 20,
+                    color: AppColors.textColor,
+                    fontWeight: FontWeight.w600),
               ),
               Obx(
                 () => Container(
                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  height: 30,
+                  height: 75,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.categoriesList.value.length,
@@ -294,9 +316,10 @@ class HomeView extends HookWidget {
                 alignment: Alignment.topLeft,
                 margin: const EdgeInsets.fromLTRB(20, 10, 0, 10),
                 child: AppWidgets.appText(AppStrings.products,
-                    fontSize: 25,
+                    fontSize: 20,
                     isBold: true,
-                    color: AppColors.primaryTextColor,fontWeight: FontWeight.w600),
+                    color: AppColors.textColor,
+                    fontWeight: FontWeight.w600),
               ),
               Expanded(
                 child: Container(
@@ -304,7 +327,7 @@ class HomeView extends HookWidget {
                   child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: (.32 / .4)),
+                              crossAxisCount: 2, childAspectRatio: (.37 / .4)),
                       itemCount: currentSelectedCategoryIndex.value == -1
                           ? 0
                           : controller

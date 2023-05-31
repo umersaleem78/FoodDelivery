@@ -56,6 +56,7 @@ class AppStrings {
   static String subTotal = "Subtotal";
   static String deliveryCharges = "Delivery charges";
   static String delivery = "Delivery";
+  static String deliveryAddress = "Delivery Address";
   static String tax = "Tax";
   static String totalAmount = "Total Amount";
   static String checkout = "Checkout";
@@ -72,7 +73,7 @@ class AppStrings {
       "No Location found. Please enter your address";
   static String fetchingLocation = "Fetching location. Please wait..";
   static String updateLocation = "Update Location";
-  static String estimatedDelivertTime = "Estimated Delivery Time";
+  static String estimatedDeliveryTime = "Estimated Delivery Time";
   static String estimatedTime = "30 - 45 mins";
   static String proceedToPayment = "Proceed To Payment";
   static String paymentMethod = "Payment method";

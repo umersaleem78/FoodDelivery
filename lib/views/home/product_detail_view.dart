@@ -16,6 +16,7 @@ class ProductDetailView extends HookWidget {
     final itemsModel = Get.arguments['data'];
     isItemInCart.value = CartState.isItemInCart(itemsModel);
     return Scaffold(
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -34,17 +35,17 @@ class ProductDetailView extends HookWidget {
               margin: const EdgeInsets.fromLTRB(15, 5, 15, 0),
               alignment: Alignment.topLeft,
               child: AppWidgets.appTextWithoutClick(itemsModel.name,
-                  fontSize: 30,
-                  isBold: true,
-                  color: AppColors.primaryTextColor),
+                  fontSize: 25,
+                  color: AppColors.textColor,
+                  fontWeight: FontWeight.w500),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(15, 5, 15, 0),
+              margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
               alignment: Alignment.topLeft,
               child: AppWidgets.appTextWithoutClick(
                   itemsModel.description ?? "",
-                  fontSize: 15,
-                  color: AppColors.secondaryTextColor),
+                  fontSize: 12,
+                  color: AppColors.lightWhiteColor),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(15, 5, 15, 0),
@@ -53,35 +54,32 @@ class ProductDetailView extends HookWidget {
                   fontSize: 18, color: AppColors.secondaryTextColor),
             ),
             isItemInCart.value
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      AppWidgets.fetchIncrementDecrementCounter((number) {
+                        if (number == 0) {
+                          CartState.removeItemFromCart(itemsModel,
+                              showSnackbar: true);
+                          isItemInCart.value =
+                              CartState.isItemInCart(itemsModel);
+                        } else {
+                          itemsModel.selectedQuantity = number;
+                          CartState.updateQuantity(itemsModel);
+                        }
+                      }, initialValue: itemsModel.selectedQuantity),
+                    ],
+                  )
+                : Container(),
+            isItemInCart.value
                 ? Container(
                     margin: const EdgeInsets.all(10),
                     alignment: Alignment.bottomRight,
                     child: AppWidgets.appTextWithoutClick(
                         "${itemsModel.currency} ${itemsModel.price}",
-                        fontSize: 20,
-                        color: AppColors.primaryTextColor),
-                  )
-                : Container(),
-            isItemInCart.value
-                ? Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        AppWidgets.fetchIncrementDecrementCounter((number) {
-                          if (number == 0) {
-                            CartState.removeItemFromCart(itemsModel,
-                                showSnackbar: true);
-                            isItemInCart.value =
-                                CartState.isItemInCart(itemsModel);
-                          } else {
-                            itemsModel.selectedQuantity = number;
-                            CartState.updateQuantity(itemsModel);
-                          }
-                        }, initialValue: itemsModel.selectedQuantity),
-                      ],
-                    ),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.orangeColor),
                   )
                 : Container(),
             const Spacer(),
@@ -97,7 +95,7 @@ class ProductDetailView extends HookWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColors.primaryTextColor,
+                          color: AppColors.orangeColor,
                           borderRadius: BorderRadius.circular(8)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,11 +105,11 @@ class ProductDetailView extends HookWidget {
                             height: 20,
                           ),
                           AppWidgets.appTextWithoutClick(AppStrings.addToCart,
-                              color: AppColors.offWhiteColor, fontSize: 20),
+                              color: AppColors.whilteColor, fontSize: 20,fontWeight: FontWeight.w600),
                           AppWidgets.appTextWithoutClick(
                               "${itemsModel.currency} ${itemsModel.price}",
                               fontSize: 15,
-                              color: AppColors.offWhiteColor)
+                              color: AppColors.primaryTextColor)
                         ],
                       ),
                     ),

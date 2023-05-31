@@ -35,9 +35,7 @@ class AppWidgets {
       {Color color = Colors.black,
       double fontSize = 15,
       bool isBold = false,
-      bool isEllipsisText = false}) {
-    var fontType = FontWeight.normal;
-    if (isBold) fontType = FontWeight.bold;
+      bool isEllipsisText = false,FontWeight fontWeight = FontWeight.w400}) {
     return Text(
       text,
       style: TextStyle(
@@ -45,7 +43,7 @@ class AppWidgets {
               isEllipsisText ? TextOverflow.ellipsis : TextOverflow.visible,
           color: color,
           fontSize: fontSize,
-          fontWeight: fontType),
+          fontWeight: fontWeight),
     );
   }
 
@@ -91,20 +89,20 @@ class AppWidgets {
       int maxLines = 1}) {
     return Container(
       height: 50,
-      margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+      margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.dividerColor, width: 1),
+        border: Border.all(color: AppColors.orangeColor, width: 1),
       ),
       child: Row(
         children: [
           ConstrainedBox(
             constraints: const BoxConstraints(minWidth: 100),
             child: Container(
-              decoration: BoxDecoration(color: AppColors.dividerColor),
+              decoration: BoxDecoration(color: AppColors.orangeColor),
               alignment: Alignment.center,
               child: Text(
                 hintText,
-                style: TextStyle(color: AppColors.offWhiteColor, fontSize: 15),
+                style: TextStyle(color: AppColors.lightWhiteColor, fontSize: 15),
               ),
             ),
           ),
@@ -112,7 +110,7 @@ class AppWidgets {
             child: Container(
               color: isEditable
                   ? AppColors.offWhiteColor
-                  : AppColors.lightBlueGrey,
+                  : AppColors.lightWhiteColor,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: TextField(
                 controller: controller,
@@ -187,9 +185,9 @@ class AppWidgets {
       int maxLines = 1}) {
     return Container(
       height: 50,
-      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+      margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.dividerColor, width: 1),
+        border: Border.all(color: AppColors.orangeColor, width: 1),
       ),
       child: Row(
         children: [
@@ -197,34 +195,38 @@ class AppWidgets {
             constraints: const BoxConstraints(minWidth: 100),
             child: Container(
               height: 50,
-              decoration: BoxDecoration(color: AppColors.dividerColor),
+              decoration: BoxDecoration(color: AppColors.orangeColor),
               alignment: Alignment.center,
               child: Text(
                 hintText,
-                style: TextStyle(color: AppColors.offWhiteColor, fontSize: 18),
+                style: TextStyle(color: AppColors.offWhiteColor, fontSize: 14),
               ),
             ),
           ),
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             alignment: Alignment.center,
+            color: AppColors.offWhiteColor,
             child: appTextWithoutClick("+92",
-                color: AppColors.dividerColor, fontSize: 14, isBold: true),
+                color: AppColors.lightBlackColor, fontSize: 14),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: TextField(
-                controller: controller,
-                cursorColor: AppColors.primaryDarkColor,
-                textInputAction: action,
-                obscureText: isPasswordField,
-                keyboardType: inputType,
-                maxLines: maxLines,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: null == prefixIcon ? null : Icon(prefixIcon)),
-                style: TextStyle(fontSize: fontSize),
+            child: Container(
+              color: AppColors.offWhiteColor,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: TextField(
+                  controller: controller,
+                  cursorColor: AppColors.orangeColor,
+                  textInputAction: action,
+                  obscureText: isPasswordField,
+                  keyboardType: inputType,
+                  maxLines: maxLines,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: null == prefixIcon ? null : Icon(prefixIcon)),
+                  style: TextStyle(fontSize: fontSize),
+                ),
               ),
             ),
           )
@@ -287,7 +289,7 @@ class AppWidgets {
 
   static Widget addIconButton(Function callback) {
     return IconButton(
-        onPressed: () => callback(), icon: const Icon(Icons.add_circle));
+        onPressed: () => callback(), icon: Icon(Icons.add_circle,color: AppColors.orangeColor,));
   }
 
   static Widget removeIconButton(Function callback) {
@@ -299,19 +301,17 @@ class AppWidgets {
       {int? initialValue}) {
     final number = (initialValue ?? 1).obs;
     const maxQuantity = 30;
-    return SizedBox(
+    return Container(
+      width: 110,
+      margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+      decoration: BoxDecoration(color: AppColors.lightGrey,borderRadius: BorderRadius.circular(8)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
             width: 30,
             height: 30,
-            margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-            decoration: BoxDecoration(
-                border: Border.all(width: 1, color: AppColors.primaryTextColor),
-                shape: BoxShape.rectangle,
-                color: AppColors.offWhiteColor,
-                borderRadius: BorderRadius.circular(5)),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
             child: IconButton(
                 onPressed: () {
                   final newNumber = number.value - 1;
@@ -322,24 +322,24 @@ class AppWidgets {
                     callback(0);
                   }
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.remove,
-                  size: 12,
+                  size: 14,
+                  color: AppColors.orangeColor,
                 )),
           ),
           Obx(
-            () => AppWidgets.appText(number.value.toString(),
-                fontSize: 16, color: AppColors.primaryTextColor, isBold: true),
+            () => Container(
+              width: 30,
+              alignment: Alignment.center,
+              child: AppWidgets.appText(number.value.toString(),
+                  fontSize: 18, color: AppColors.orangeColor,fontWeight: FontWeight.w400),
+            ),
           ),
           Container(
             width: 30,
             height: 30,
-            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-            decoration: BoxDecoration(
-                border: Border.all(width: 1, color: AppColors.primaryTextColor),
-                shape: BoxShape.rectangle,
-                color: AppColors.offWhiteColor,
-                borderRadius: BorderRadius.circular(5)),
+            margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
             child: IconButton(
                 onPressed: () {
                   final newNumber = number.value + 1;
@@ -351,9 +351,10 @@ class AppWidgets {
                         AppStrings.info, AppStrings.maxQuantityReached);
                   }
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.add,
-                  size: 12,
+                  size: 14,
+                  color: AppColors.orangeColor,
                 )),
           )
         ],
@@ -370,11 +371,11 @@ class AppWidgets {
           style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
               backgroundColor:
-                  MaterialStateProperty.all(bgColor ?? AppColors.primaryColor)),
+                  MaterialStateProperty.all(bgColor ?? AppColors.orangeColor)),
           child: Text(
             text,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            style:  TextStyle(
+                color: AppColors.lightWhiteColor, fontSize: 16, fontWeight: FontWeight.w500),
           ),
         ));
   }
@@ -390,9 +391,9 @@ class AppWidgets {
               onPressed: () => callBack(),
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: AppColors.primaryTextColor,
+                color: AppColors.orangeColor,
               )),
-          appText(title, isBold: true, fontSize: 20, color: textColor)
+          appText(title, fontSize: 20, color: textColor,fontWeight: FontWeight.w500)
         ],
       ),
     );

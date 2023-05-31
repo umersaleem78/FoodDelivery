@@ -95,6 +95,7 @@ class CheckoutView extends HookWidget {
     }
 
     return Scaffold(
+        backgroundColor: AppColors.blackColor,
         body: SafeArea(
             child: isUserLoggedIn.value
                 ? SingleChildScrollView(
@@ -104,15 +105,17 @@ class CheckoutView extends HookWidget {
                       child: Column(
                         children: [
                           AppWidgets.appHeader(
-                              AppStrings.checkout, () => Get.back()),
+                              AppStrings.checkout,
+                              textColor: AppColors.textColor,
+                              () => Get.back()),
                           Container(
                               alignment: Alignment.topLeft,
                               margin: const EdgeInsets.all(20),
                               child: AppWidgets.appTextWithoutClick(
-                                  AppStrings.delivery,
-                                  isBold: true,
-                                  fontSize: 25,
-                                  color: AppColors.primaryDarkColor)),
+                                  AppStrings.deliveryAddress,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.textColor)),
                           Row(
                             children: [
                               Container(
@@ -121,10 +124,10 @@ class CheckoutView extends HookWidget {
                                 margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: AppColors.colorGrey),
+                                    color: AppColors.orangeColor),
                                 child: Icon(
                                   Icons.location_on,
-                                  color: AppColors.accentColor,
+                                  color: AppColors.lightWhiteColor,
                                   size: 25,
                                 ),
                               ),
@@ -139,11 +142,11 @@ class CheckoutView extends HookWidget {
                                       AppWidgets.appTextWithoutClick(
                                           AppStrings.myLocation,
                                           fontSize: 12,
-                                          color: AppColors.colorGrey),
+                                          color: AppColors.textColor),
                                       AppWidgets.appTextWithoutClick(
                                           address.value,
                                           fontSize: 16,
-                                          color: AppColors.primaryTextColor,
+                                          color: AppColors.lightWhiteColor,
                                           isBold: true)
                                     ],
                                   ),
@@ -155,7 +158,7 @@ class CheckoutView extends HookWidget {
                                   child: AppWidgets.appText(
                                     AppStrings.change,
                                     fontSize: 15,
-                                    color: AppColors.primaryColor,
+                                    color: AppColors.orangeColor,
                                     isClickable: true,
                                     callBack: () => GoNavigation.to(
                                             () => const LocationView())
@@ -169,7 +172,7 @@ class CheckoutView extends HookWidget {
                                   margin: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
-                                      color: AppColors.primaryLightColor),
+                                      color: AppColors.lightBlackColor),
                                   child: Column(
                                     children: [
                                       Container(
@@ -178,7 +181,7 @@ class CheckoutView extends HookWidget {
                                         alignment: Alignment.center,
                                         child: Icon(
                                           Icons.timer,
-                                          color: AppColors.primaryDarkColor,
+                                          color: AppColors.orangeColor,
                                           size: 50,
                                         ),
                                       ),
@@ -187,8 +190,8 @@ class CheckoutView extends HookWidget {
                                               0, 5, 0, 0),
                                           alignment: Alignment.center,
                                           child: AppWidgets.appTextWithoutClick(
-                                              AppStrings.estimatedDelivertTime,
-                                              color: AppColors.offWhiteColor,
+                                              AppStrings.estimatedDeliveryTime,
+                                              color: AppColors.textColor,
                                               fontSize: 13)),
                                       Container(
                                           margin: const EdgeInsets.fromLTRB(
@@ -196,9 +199,9 @@ class CheckoutView extends HookWidget {
                                           alignment: Alignment.center,
                                           child: AppWidgets.appTextWithoutClick(
                                               AppStrings.estimatedTime,
-                                              color: AppColors.primaryDarkColor,
+                                              color: AppColors.lightWhiteColor,
                                               fontSize: 16,
-                                              isBold: true))
+                                              fontWeight: FontWeight.w500))
                                     ],
                                   ),
                                 )
@@ -212,28 +215,26 @@ class CheckoutView extends HookWidget {
                                           20, 0, 0, 0),
                                       child: AppWidgets.appTextWithoutClick(
                                           AppStrings.paymentMethod,
-                                          color: AppColors.primaryTextColor,
-                                          fontSize: 20,
-                                          isBold: true),
+                                          color: AppColors.textColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
                                     ),
                                     Container(
                                       padding: const EdgeInsets.all(15),
                                       margin: const EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 10),
                                       decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1,
-                                              color: AppColors.dividerColor),
                                           borderRadius:
                                               BorderRadius.circular(8),
-                                          color: AppColors.offWhiteColor),
+                                          color: AppColors.lightBlackColor),
                                       child: Row(children: [
                                         Container(
                                           margin: const EdgeInsets.symmetric(
                                               horizontal: 5),
-                                          child: const Icon(
+                                          child: Icon(
                                             Icons.money_rounded,
                                             size: 30,
+                                            color: AppColors.orangeColor,
                                           ),
                                         ),
                                         Expanded(
@@ -245,9 +246,10 @@ class CheckoutView extends HookWidget {
                                                   .appTextWithoutClick(
                                                       AppStrings.cashOnDelivery,
                                                       fontSize: 15,
-                                                      color: AppColors
-                                                          .primaryTextColor,
-                                                      isBold: true)),
+                                                      color:
+                                                          AppColors.textColor,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
                                         ),
                                         Container(
                                           margin: const EdgeInsets.symmetric(
@@ -255,7 +257,7 @@ class CheckoutView extends HookWidget {
                                           child: Icon(
                                             Icons.check_circle_outline,
                                             size: 30,
-                                            color: AppColors.primaryDarkColor,
+                                            color: AppColors.orangeColor,
                                           ),
                                         ),
                                       ]),
@@ -272,8 +274,9 @@ class CheckoutView extends HookWidget {
                                         alignment: Alignment.topLeft,
                                         child: AppWidgets.appTextWithoutClick(
                                             AppStrings.details,
-                                            fontSize: 20,
-                                            isBold: true)),
+                                            color: AppColors.textColor,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500)),
                                     AppWidgets.appFieldNew(
                                         AppStrings.name, nameController),
                                     AppWidgets.appFieldNew(
@@ -286,7 +289,7 @@ class CheckoutView extends HookWidget {
                           address.value != ""
                               ? Flexible(
                                   child: Container(
-                                      alignment: Alignment.bottomRight,
+                                      alignment: Alignment.topCenter,
                                       margin: const EdgeInsets.all(20),
                                       child: AppWidgets.appButton(
                                           AppStrings.placeOrder,

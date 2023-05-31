@@ -19,7 +19,7 @@ class SplashView extends HookWidget {
     }, []);
 
     return Scaffold(
-      backgroundColor: AppColors.offWhiteColor,
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
