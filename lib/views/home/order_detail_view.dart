@@ -15,7 +15,9 @@ class OrderDetailView extends HookWidget {
 
   Widget fetchOrderItem(ItemsModel model) {
     return Card(
-      margin: EdgeInsets.zero,
+      elevation: 5,
+      color: AppColors.lightBlackColor,
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
         child: Row(
@@ -70,15 +72,15 @@ class OrderDetailView extends HookWidget {
   }
 
   Widget fetchBottomRowWidget(String title, String amount,
-      {Color? color, bool isBold = true}) {
+      {Color? color, FontWeight fontWeight = FontWeight.w400}) {
     return SizedBox(
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         AppWidgets.appTextWithoutClick(title,
-            fontSize: 13, color: AppColors.primaryTextColor),
+            fontSize: 13, color: AppColors.textColor),
         AppWidgets.appTextWithoutClick(amount,
             fontSize: 18,
-            isBold: isBold,
-            color: color ?? AppColors.primaryTextColor)
+            fontWeight: fontWeight,
+            color: color ?? AppColors.lightWhiteColor)
       ]),
     );
   }
@@ -87,25 +89,33 @@ class OrderDetailView extends HookWidget {
   Widget build(BuildContext context) {
     final orderItem = Get.arguments['data'];
     return Scaffold(
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
           child: Column(
         children: [
           AppWidgets.appHeader("", () => Get.back()),
-          Card(
-            margin: EdgeInsets.zero,
+          Container(
+            margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            decoration: BoxDecoration(
+                color: AppColors.lightBlackColor,
+                borderRadius: BorderRadius.circular(8)),
             child: Container(
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  fetchBottomRowWidget(AppStrings.orderDate,
-                      DateTimeUtils.changeDateFormat(orderItem.orderDate),
-                      isBold: false),
-                  fetchBottomRowWidget(AppStrings.orderTime,
-                      DateTimeUtils.changeDateFormat(orderItem.orderTime),
-                      isBold: false),
-                  fetchBottomRowWidget(AppStrings.status, orderItem.orderStatus,
+                  fetchBottomRowWidget(
+                    AppStrings.orderDate,
+                    DateTimeUtils.changeDateFormat(orderItem.orderDate),
+                  ),
+                  fetchBottomRowWidget(
+                    AppStrings.orderTime,
+                    DateTimeUtils.changeDateFormat(orderItem.orderTime),
+                  ),
+                  fetchBottomRowWidget(
+                      AppStrings.status, orderItem.orderStatus,
                       color: AppUtils.getColorBasedOnStatus(
-                          orderItem.orderStatus)),
+                          orderItem.orderStatus),
+                      fontWeight: FontWeight.w500),
                 ],
               ),
             ),
@@ -126,17 +136,22 @@ class OrderDetailView extends HookWidget {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  fetchBottomRowWidget(AppStrings.totalItems,
-                      orderItem.cartItems.length.toString(),
-                      isBold: false),
                   fetchBottomRowWidget(
-                      AppStrings.subTotal, orderItem.totalPrice,
-                      isBold: false),
-                  fetchBottomRowWidget(AppStrings.tax, CartState.getTax(),
-                      isBold: false),
-                  fetchBottomRowWidget(AppStrings.deliveryCharges,
-                      CartState.getDeliveryCharges(),
-                      isBold: false),
+                    AppStrings.totalItems,
+                    orderItem.cartItems.length.toString(),
+                  ),
+                  fetchBottomRowWidget(
+                    AppStrings.subTotal,
+                    orderItem.totalPrice,
+                  ),
+                  fetchBottomRowWidget(
+                    AppStrings.tax,
+                    CartState.getTax(),
+                  ),
+                  fetchBottomRowWidget(
+                    AppStrings.deliveryCharges,
+                    CartState.getDeliveryCharges(),
+                  ),
                   fetchBottomRowWidget(
                       AppStrings.totalAmount, orderItem.totalPrice)
                 ],
