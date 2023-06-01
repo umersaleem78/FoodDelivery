@@ -53,18 +53,18 @@ class AppUtils {
 
   static Color getColorBasedOnStatus(String? status) {
     if (status == null || status.isEmpty) {
-      return AppColors.orangeColor;
+      return AppColors.textColor;
     }
 
     if (status == AppConstants.statusPreparing) {
-      return AppColors.primaryLightColor;
+      return AppColors.statusColorPreparing;
     } else if (status == AppConstants.statusOnRoute) {
-      return AppColors.accentColor;
+      return AppColors.statusColorOnRoute;
     } else if (status == AppConstants.statusDelivered) {
-      return AppColors.lightGrey;
+      return AppColors.statusColorDelieverd;
     }
     // default case => 'Pending'
-    return AppColors.orangeColor;
+    return AppColors.statusColorPending;
   }
 
   static void shareApp() {

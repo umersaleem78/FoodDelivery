@@ -5,6 +5,7 @@ import 'package:food_app/controllers/order_track_controller.dart';
 import 'package:food_app/models/order_model.dart';
 import 'package:food_app/state/cart_state.dart';
 import 'package:food_app/utils/app_strings.dart';
+import 'package:food_app/utils/app_utils.dart';
 import 'package:food_app/utils/location_utils.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class OrderTrackView extends HookWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: isSameStatus == true
-              ? AppColors.orangeColor
+              ? AppUtils.getColorBasedOnStatus(orderStatus)
               : AppColors.blackColor),
       child: Column(
         children: [
@@ -92,7 +93,7 @@ class OrderTrackView extends HookWidget {
             ),
           ),
           Container(
-              margin: const EdgeInsets.only(top: 50, left: 20),
+              margin: const EdgeInsets.only(top: 20, left: 20),
               child: AppWidgets.appTextWithoutClick(AppStrings.orderNumber,
                   color: AppColors.textColor, fontSize: 15)),
           Container(
@@ -169,7 +170,10 @@ class OrderTrackView extends HookWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: AppWidgets.appTextWithoutClick(
-                        AppStrings.estimatedDeliveryTime,
+                        orderModel.value.orderStatus ==
+                                AppConstants.statusDelivered
+                            ? AppStrings.deliveryTime
+                            : AppStrings.estimatedDeliveryTime,
                         color: AppColors.textColor,
                         fontSize: 12),
                   ),

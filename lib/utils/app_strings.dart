@@ -75,6 +75,7 @@ class AppStrings {
   static String fetchingLocation = "Fetching location. Please wait..";
   static String updateLocation = "Update Location";
   static String estimatedDeliveryTime = "Estimated Delivery Time";
+  static String deliveryTime = "Delivery Time";
   static String estimatedTime = "30 - 45 mins";
   static String proceedToPayment = "Proceed To Payment";
   static String paymentMethod = "Payment method";

@@ -96,7 +96,7 @@ class CartState {
     for (var item in items) {
       time += (item.preparationTime?.toInt() ?? 0);
     }
-    // adding extra 20 mins for deliveryt
+    // adding extra 20 mins for delivery
     return time.toInt() + 20;
   }
 }

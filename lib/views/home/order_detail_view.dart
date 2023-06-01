@@ -79,7 +79,7 @@ class OrderDetailView extends HookWidget {
         AppWidgets.appTextWithoutClick(title,
             fontSize: 13, color: AppColors.textColor),
         AppWidgets.appTextWithoutClick(amount,
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: fontWeight,
             color: color ?? AppColors.lightWhiteColor)
       ]),
