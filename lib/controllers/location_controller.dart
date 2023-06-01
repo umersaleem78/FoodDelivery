@@ -2,7 +2,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:food_app/utils/app_strings.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:geocoding/geocoding.dart';
 
 class LocationController extends GetxController {
   Future<dynamic> fetchUserLocation() async {
