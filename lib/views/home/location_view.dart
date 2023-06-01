@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/controllers/location_controller.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_strings.dart';
+import 'package:food_app/utils/location_utils.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -21,8 +22,9 @@ class LocationView extends HookWidget {
       try {
         position = await controller.fetchUserLocation();
         if (position is Position) {
-          final currentAddress = await controller.fetchAddressFromCoordinates(
-              position.latitude, position.longitude);
+          final currentAddress =
+              await LocationUtils.fetchAddressFromCoordinates(
+                  position.latitude, position.longitude);
           if (currentAddress != null) {
             locationTFController.text = currentAddress;
           }

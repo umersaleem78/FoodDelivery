@@ -45,7 +45,8 @@ class HomeView extends HookWidget {
                         ? AppColors.orangeColor
                         : AppColors.textColor,
                     fontSize: 12,
-                    fontWeight: model.isSelected ? FontWeight.w600 : FontWeight.w300),
+                    fontWeight:
+                        model.isSelected ? FontWeight.w600 : FontWeight.w300),
               ),
             ],
           )),

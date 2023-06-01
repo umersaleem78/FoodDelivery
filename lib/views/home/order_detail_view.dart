@@ -4,6 +4,7 @@ import 'package:food_app/models/items_model.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_utils.dart';
 import 'package:food_app/utils/date_time_utils.dart';
+import 'package:food_app/views/home/order_track_view.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:get/get.dart';
 
@@ -104,6 +105,10 @@ class OrderDetailView extends HookWidget {
               child: Column(
                 children: [
                   fetchBottomRowWidget(
+                    AppStrings.orderNo,
+                    DateTimeUtils.changeDateFormat(orderItem.orderId),
+                  ),
+                  fetchBottomRowWidget(
                     AppStrings.orderDate,
                     DateTimeUtils.changeDateFormat(orderItem.orderDate),
                   ),
@@ -115,6 +120,31 @@ class OrderDetailView extends HookWidget {
                       color:
                           AppUtils.getColorBasedOnStatus(orderItem.orderStatus),
                       fontWeight: FontWeight.w500),
+                  InkWell(
+                    onTap: () {
+                      final args = {'data': orderItem.orderId};
+                      Get.to(() => const OrderTrackView(), arguments: args);
+                    },
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          child: Icon(
+                            Icons.delivery_dining,
+                            color: AppColors.orangeColor,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          child: Icon(
+                            Icons.arrow_right,
+                            color: AppColors.orangeColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -145,24 +175,20 @@ class OrderDetailView extends HookWidget {
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
+                  fetchBottomRowWidget(AppStrings.totalItems,
+                      orderItem.cartItems.length.toString(),
+                      fontWeight: FontWeight.w500),
                   fetchBottomRowWidget(
-                    AppStrings.totalItems,
-                    orderItem.cartItems.length.toString(),fontWeight: FontWeight.w500
-                  ),
+                      AppStrings.subTotal, orderItem.totalPrice,
+                      fontWeight: FontWeight.w300),
+                  fetchBottomRowWidget(AppStrings.tax, CartState.getTax(),
+                      fontWeight: FontWeight.w300),
+                  fetchBottomRowWidget(AppStrings.deliveryCharges,
+                      CartState.getDeliveryCharges(),
+                      fontWeight: FontWeight.w300),
                   fetchBottomRowWidget(
-                    AppStrings.subTotal,
-                    orderItem.totalPrice,fontWeight: FontWeight.w300
-                  ),
-                  fetchBottomRowWidget(
-                    AppStrings.tax,
-                    CartState.getTax(),fontWeight: FontWeight.w300
-                  ),
-                  fetchBottomRowWidget(
-                    AppStrings.deliveryCharges,
-                    CartState.getDeliveryCharges(),fontWeight: FontWeight.w300
-                  ),
-                  fetchBottomRowWidget(
-                      AppStrings.totalAmount, orderItem.totalPrice,fontWeight: FontWeight.w500)
+                      AppStrings.totalAmount, orderItem.totalPrice,
+                      fontWeight: FontWeight.w500)
                 ],
               ),
             ),

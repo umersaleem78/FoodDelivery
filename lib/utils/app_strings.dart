@@ -69,7 +69,7 @@ class AppStrings {
   static String locationPermissionPermanentlyDenied =
       "Location permissions are permanently denied. Please open settings and grant permissions";
   static String currentLocation = "Current Location";
-  static String location= "Location";
+  static String location = "Location";
   static String noLocationFound =
       "No Location found. Please enter your address";
   static String fetchingLocation = "Fetching location. Please wait..";
@@ -92,6 +92,8 @@ class AppStrings {
   static String viewOrder = "View Order";
   static String myOrders = "My Orders";
   static String orderDate = "Order Date";
+  static String orderNo = "Order #";
+  static String orderNumber = "Order Number";
   static String orderTime = "Order Time";
   static String addToCart = "Add to cart";
   static String shareApp = "Share App";
@@ -104,4 +106,13 @@ class AppStrings {
       "Verification email has been sent. Please check your email";
   static String orderDetails = "Order Details";
   static String items = "Items";
+  static String successful = "Successful";
+  static String orderSuccessfulMessage =
+      "Your order has been successful received. We are processing your order.";
+  static String trackOrder = "Track order";
+  static String goBackToHome = "Go back to home";
+  static String invalidOrderIdFound =
+      "Invalid order id found. Please try again";
+  static String timeUnit = "mins";
+  static String homeCity = "City";
 }

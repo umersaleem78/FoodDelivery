@@ -28,6 +28,20 @@ class OrdersView extends HookWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         child: Column(children: [
+                    Container(
+            margin: const EdgeInsets.symmetric(vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppWidgets.appTextWithoutClick(AppStrings.orderNo,
+                    color: AppColors.textColor, fontSize: 15),
+                AppWidgets.appTextWithoutClick(
+                    DateTimeUtils.changeDateFormat(model.orderId.toString()),
+                    color: AppColors.lightWhiteColor,
+                    fontSize: 15,),
+              ],
+            ),
+          ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 5),
             child: Row(

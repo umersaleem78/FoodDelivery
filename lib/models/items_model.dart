@@ -12,7 +12,7 @@ class ItemsModel {
   String? coverImage;
   String? description;
   String? calories;
-  String? preparationTime;
+  num? preparationTime;
   num? rating;
 
   ItemsModel(
@@ -40,7 +40,7 @@ class ItemsModel {
       String? coverImage,
       String? description,
       String? calories,
-      String? preparationTime,
+      num? preparationTime,
       num? rating}) {
     return ItemsModel(
         currency: currency ?? this.currency,
@@ -91,7 +91,7 @@ class ItemsModel {
             map['description'] != null ? map['description'] as String : null,
         calories: map['calories'] != null ? map['calories'] as String : null,
         preparationTime: map['preparationTime'] != null
-            ? map['preparationTime'] as String
+            ? map['preparationTime'] as num
             : null,
         rating: map['rating'] != null ? map['rating'] as num : null);
   }

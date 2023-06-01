@@ -110,7 +110,7 @@ class ProductDetailView extends HookWidget {
                       Container(
                           margin: const EdgeInsets.only(left: 5),
                           child: AppWidgets.appTextWithoutClick(
-                              itemsModel.preparationTime,
+                              "${itemsModel.preparationTime} ${AppStrings.timeUnit}",
                               color: AppColors.textColor,
                               fontSize: 12))
                     ],

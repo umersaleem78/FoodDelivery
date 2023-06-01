@@ -16,6 +16,6 @@ class AppConstants {
   // Order Status
   static String statusPending = "Pending";
   static String statusPreparing = "Preparing";
-  static String statusOnRoute = "On Route for delivery";
+  static String statusOnRoute = "On Route";
   static String statusDelivered = "Delivered";
 }

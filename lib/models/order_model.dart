@@ -3,6 +3,7 @@ import 'package:food_app/models/user_location_model.dart';
 import 'package:food_app/models/user_model.dart';
 
 class OrderModel {
+  String? orderId;
   UserModel? userModel;
   UserLocationModel? userLocationModel;
   List<dynamic>? cartItems;
@@ -13,7 +14,8 @@ class OrderModel {
   String? orderTime;
 
   OrderModel(
-      {this.userModel,
+      {this.orderId,
+      this.userModel,
       this.userLocationModel,
       this.cartItems,
       this.userId,
@@ -28,6 +30,7 @@ class OrderModel {
     cartItems = List.from(json['cartItems'])
         .map((e) => ItemsModel.fromJson(e))
         .toList();
+    orderId = json['orderId'];
     userId = json['userId'];
     totalPrice = json['totalPrice'];
     orderStatus = json['orderStatus'];
@@ -38,6 +41,7 @@ class OrderModel {
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['userModel'] = userModel?.toJson();
+    data['orderId'] = orderId;
     data['userLocationModel'] = userLocationModel?.toJson();
     data['cartItems'] = cartItems?.map((e) => e?.toJson()).toList();
     data['userId'] = userId;

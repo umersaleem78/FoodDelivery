@@ -7,7 +7,6 @@ import 'package:food_app/state/cart_state.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_strings.dart';
 import 'package:food_app/utils/go_navigation.dart';
-import 'package:food_app/views/home/dashboard_view.dart';
 import 'package:food_app/views/home/location_view.dart';
 import 'package:food_app/views/home/order_success_view.dart';
 import 'package:food_app/widgets/app_widgets.dart';
@@ -27,7 +26,8 @@ class CheckoutView extends HookWidget {
         children: [
           Container(
               margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: AppWidgets.appText(AppStrings.notLoggedInMessage,color: AppColors.textColor)),
+              child: AppWidgets.appText(AppStrings.notLoggedInMessage,
+                  color: AppColors.textColor)),
           AppWidgets.appButton(AppStrings.login, () async {
             var response = await GoNavigation.to(() => const LoginView());
             callback(response);
@@ -90,8 +90,10 @@ class CheckoutView extends HookWidget {
           nameController.text, emailController.text, phoneController.text);
       EasyLoading.showSuccess(AppStrings.orderPlacedSuccess);
       CartState.clearCart();
-      if (response != null && response) {
-        Get.offAll(() => const OrderSuccessView());
+      if (response != null) {
+        // pass order id
+        final args = {'data': response};
+        Get.offAll(() => const OrderSuccessView(), arguments: args);
       }
     }
 

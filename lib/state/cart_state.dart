@@ -87,4 +87,16 @@ class CartState {
     final tax = getTax();
     return "${fetchCurrency()} ${int.parse(subTotal) + int.parse(deliveryCharges) + int.parse(tax)}";
   }
+
+  static int fetchTotalPrepartionTime(List<dynamic>? items) {
+    if (items == null || items.isEmpty) {
+      return 0;
+    }
+    num time = 0;
+    for (var item in items) {
+      time += (item.preparationTime?.toInt() ?? 0);
+    }
+    // adding extra 20 mins for deliveryt
+    return time.toInt() + 20;
+  }
 }

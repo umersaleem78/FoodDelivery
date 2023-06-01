@@ -33,17 +33,4 @@ class LocationController extends GetxController {
 
     return await Geolocator.getCurrentPosition();
   }
-
-  Future<dynamic> fetchAddressFromCoordinates(
-      double latitude, double longitude) async {
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
-    if (placemarks.isNotEmpty) {
-      final place = placemarks[0];
-      EasyLoading.dismiss();
-      return "${place.name}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.administrativeArea}, ${place.country}";
-    }
-    EasyLoading.dismiss();
-    return Future.error(AppStrings.noLocationFound);
-  }
 }

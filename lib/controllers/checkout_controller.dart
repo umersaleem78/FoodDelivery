@@ -35,12 +35,14 @@ class CheckoutController extends GetxController {
 
   Future<dynamic> placeOrder(name, email, phone) async {
     try {
+      final orderId = DateTimeUtils.fetchRandomOrderId();
       final model = UserModel(
           uid: AppState.userModel?.uid,
           name: name,
           email: email,
           phoneNumber: phone);
       final ordersModel = OrderModel(
+          orderId: orderId,
           userModel: model,
           userLocationModel: AppState.userLocationModel,
           cartItems: CartState.cartItemsList,
@@ -56,11 +58,11 @@ class CheckoutController extends GetxController {
           .set(ordersModel.toJson());
       EasyLoading.dismiss();
       EasyLoading.showSuccess(AppStrings.orderPlacedSuccess);
-      return true;
+      return orderId;
     } catch (e) {
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString());
-      return false;
+      return null;
     }
   }
 }

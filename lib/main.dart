@@ -9,6 +9,7 @@ import 'package:food_app/controllers/email_verification_controller.dart';
 import 'package:food_app/controllers/home_controller.dart';
 import 'package:food_app/controllers/location_controller.dart';
 import 'package:food_app/controllers/login_controller.dart';
+import 'package:food_app/controllers/order_track_controller.dart';
 import 'package:food_app/controllers/orders_controller.dart';
 import 'package:food_app/controllers/products_controller.dart';
 import 'package:food_app/controllers/settings_controller.dart';
@@ -47,6 +48,7 @@ void main() async {
   Get.put(SettingsController());
   Get.put(OrdersController());
   Get.put(EmailVerificationController());
+  Get.put(OrderTrackController());
   runApp(const MyApp());
 }
 
