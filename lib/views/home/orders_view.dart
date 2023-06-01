@@ -139,7 +139,7 @@ class OrdersView extends HookWidget {
                     alignment: Alignment.topLeft,
                     child: AppWidgets.appTextWithoutClick(myOrders.value,
                         color: AppColors.textColor,
-                        fontSize: 25,fontWeight: FontWeight.w500),
+                        fontSize: 20,fontWeight: FontWeight.w500),
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -156,8 +156,8 @@ class OrdersView extends HookWidget {
                 child: AppWidgets.appTextWithoutClick(
                     AppStrings.pleaseLoginToViewThisPage,
                     fontSize: 18,
-                    isBold: true,
-                    color: AppColors.primaryTextColor),
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.textColor),
               ),
       )),
     );

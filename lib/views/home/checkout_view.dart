@@ -26,7 +26,7 @@ class CheckoutView extends HookWidget {
         children: [
           Container(
               margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: AppWidgets.appText(AppStrings.notLoggedInMessage)),
+              child: AppWidgets.appText(AppStrings.notLoggedInMessage,color: AppColors.textColor)),
           AppWidgets.appButton(AppStrings.login, () async {
             var response = await GoNavigation.to(() => const LoginView());
             callback(response);
@@ -43,7 +43,7 @@ class CheckoutView extends HookWidget {
               margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: AppWidgets.appButton(AppStrings.close, () {
                 Get.back();
-              }, bgColor: AppColors.colorGrey))
+              }, bgColor: AppColors.lightBlackColor))
         ],
       ),
     );

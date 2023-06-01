@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/controllers/location_controller.dart';
+import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_strings.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:geolocator/geolocator.dart';
@@ -37,14 +38,15 @@ class LocationView extends HookWidget {
     }, []);
 
     return Scaffold(
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
           child: Column(
         children: [
           AppWidgets.appHeader(AppStrings.selectLocation, () => Get.back()),
           Container(
-              margin: const EdgeInsets.all(20),
-              child: AppWidgets.appField(
-                  AppStrings.currentLocation, locationTFController)),
+              margin: const EdgeInsets.only(top: 20),
+              child: AppWidgets.appFieldNew(
+                  AppStrings.location, locationTFController)),
           Container(
               margin: const EdgeInsets.all(20),
               child: AppWidgets.appButton(AppStrings.updateLocation, () {

@@ -57,7 +57,7 @@ class AppWidgets {
       int maxLines = 1}) {
     return TextField(
       controller: controller,
-      cursorColor: AppColors.primaryDarkColor,
+      cursorColor: AppColors.orangeColor,
       textInputAction: action,
       obscureText: isPasswordField,
       keyboardType: inputType,
@@ -65,7 +65,7 @@ class AppWidgets {
       decoration: InputDecoration(
           prefixIcon: null == prefixIcon ? null : Icon(prefixIcon),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: AppColors.textColor,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(6),
               borderSide: BorderSide(color: AppColors.primaryColor, width: 2)),
@@ -114,7 +114,7 @@ class AppWidgets {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: TextField(
                 controller: controller,
-                cursorColor: AppColors.primaryDarkColor,
+                cursorColor: AppColors.orangeColor,
                 textInputAction: action,
                 obscureText: isPasswordField,
                 keyboardType: inputType,
@@ -145,14 +145,14 @@ class AppWidgets {
       height: 50,
       margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.dividerColor, width: 1),
+        border: Border.all(color: AppColors.orangeColor, width: 1),
       ),
       child: Row(
         children: [
           ConstrainedBox(
             constraints: const BoxConstraints(minWidth: 100),
             child: Container(
-              decoration: BoxDecoration(color: AppColors.dividerColor),
+              decoration: BoxDecoration(color: AppColors.orangeColor),
               alignment: Alignment.center,
               child: appText(
                 hintText,
@@ -164,7 +164,7 @@ class AppWidgets {
           Expanded(
             child: Container(
               alignment: Alignment.centerLeft,
-              color: AppColors.lightBlueGrey,
+              color: AppColors.lightWhiteColor,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: AppWidgets.appTextWithoutClick(name, fontSize: fontSize),
             ),
@@ -242,9 +242,9 @@ class AppWidgets {
       int maxLines = 1}) {
     return Container(
       height: 50,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.dividerColor, width: 1),
+        border: Border.all(color: AppColors.orangeColor, width: 1),
       ),
       child: Row(
         children: [
@@ -252,7 +252,7 @@ class AppWidgets {
             constraints: const BoxConstraints(minWidth: 100),
             child: Container(
               height: 50,
-              decoration: BoxDecoration(color: AppColors.dividerColor),
+              decoration: BoxDecoration(color: AppColors.orangeColor),
               alignment: Alignment.center,
               child: Text(
                 hintText,
@@ -262,10 +262,11 @@ class AppWidgets {
           ),
           Expanded(
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
+              color: AppColors.offWhiteColor,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
                 controller: controller,
-                cursorColor: AppColors.primaryDarkColor,
+                cursorColor: AppColors.orangeColor,
                 textInputAction: action,
                 obscureText: obscureText,
                 keyboardType: TextInputType.text,
@@ -274,7 +275,7 @@ class AppWidgets {
                     suffixIcon: IconButton(
                       icon: Icon(obscureText
                           ? Icons.visibility
-                          : Icons.visibility_off),
+                          : Icons.visibility_off,color: AppColors.orangeColor,),
                       onPressed: () => callBack(),
                     ),
                     border: InputBorder.none),
@@ -381,7 +382,7 @@ class AppWidgets {
   }
 
   static Widget appHeader(String title, Function callBack,
-      {Color textColor = Colors.black26}) {
+      {Color textColor = Colors.white54}) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.fromLTRB(5, 10, 0, 0),

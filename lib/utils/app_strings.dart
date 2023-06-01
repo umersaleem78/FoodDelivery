@@ -69,6 +69,7 @@ class AppStrings {
   static String locationPermissionPermanentlyDenied =
       "Location permissions are permanently denied. Please open settings and grant permissions";
   static String currentLocation = "Current Location";
+  static String location= "Location";
   static String noLocationFound =
       "No Location found. Please enter your address";
   static String fetchingLocation = "Fetching location. Please wait..";
@@ -101,4 +102,6 @@ class AppStrings {
   static String resend = "Resend";
   static String verificationEmailSent =
       "Verification email has been sent. Please check your email";
+  static String orderDetails = "Order Details";
+  static String items = "Items";
 }

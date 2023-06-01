@@ -64,12 +64,13 @@ class ProfileView extends HookWidget {
     }, []);
 
     return Scaffold(
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
         child: isUserLoggedIn.value == true
             ? Column(
                 children: [
                   AppWidgets.appHeader(AppStrings.profile, () => Get.back(),
-                      textColor: AppColors.primaryTextColor),
+                      textColor: AppColors.textColor),
                   Container(
                       alignment: Alignment.bottomCenter,
                       child: CircleAvatar(
@@ -77,6 +78,7 @@ class ProfileView extends HookWidget {
                             AssetImage(AppImages.profilePlaceholder),
                         radius: 50,
                       )),
+                  const SizedBox(height: 50),
                   Container(
                     margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                     child: AppWidgets.appFieldWithTitle(

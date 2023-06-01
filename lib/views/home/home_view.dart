@@ -79,16 +79,26 @@ class HomeView extends HookWidget {
                 height: 70,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: FadeInImage.assetNetwork(
-                      placeholder: AppImages.imagePlaceholder,
-                      image: model.image ?? "",
+                    child: Image.network(
+                      model.image ?? "",
                       fit: BoxFit.contain,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
                     )),
               ),
               Container(
                 alignment: Alignment.topLeft,
                 margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                child: AppWidgets.appText(model.name ?? "",
+                child: AppWidgets.appTextWithoutClick(model.name ?? "",
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
                     isEllipsisText: true,
@@ -100,14 +110,14 @@ class HomeView extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      child: AppWidgets.appText(
+                      child: AppWidgets.appTextWithoutClick(
                           "${model.currency ?? ""} ${model.price?.toString() ?? ""}",
                           fontSize: 12,
                           color: AppColors.lightWhiteColor),
                     ),
                     Container(
                       alignment: Alignment.topLeft,
-                      child: AppWidgets.appText(model.quantity ?? "",
+                      child: AppWidgets.appTextWithoutClick(model.quantity ?? "",
                           fontSize: 12, color: AppColors.lightWhiteColor),
                     ),
                   ],
@@ -298,7 +308,7 @@ class HomeView extends HookWidget {
               Obx(
                 () => Container(
                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  height: 75,
+                  height: 85,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.categoriesList.value.length,

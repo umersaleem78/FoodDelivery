@@ -26,10 +26,21 @@ class ProductDetailView extends HookWidget {
             SizedBox(
               height: 250,
               width: double.infinity,
-              child: Image.network(
-                itemsModel.coverImage ?? itemsModel.image,
-                fit: BoxFit.fill,
-              ),
+              child:Image.network(
+                      itemsModel.coverImage ?? itemsModel.image,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(15, 5, 15, 0),

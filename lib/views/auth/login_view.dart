@@ -41,7 +41,7 @@ class LoginView extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.offWhiteColor,
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -79,7 +79,7 @@ class LoginView extends HookWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.fromLTRB(0, 25, 0, 20),
-                      child: AppWidgets.appText(AppStrings.noAccountSignUp,
+                      child: AppWidgets.appText(AppStrings.noAccountSignUp,color: AppColors.textColor,
                           isClickable: true,
                           callBack: () =>
                               GoNavigation.off(() => const SignUpView())),
