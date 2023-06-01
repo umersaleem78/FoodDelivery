@@ -47,7 +47,7 @@ class OrderSuccessView extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(20, 50, 20, 0),
                   child: AppWidgets.appButton(AppStrings.trackOrder, () {
                     final args = {'data': orderId};
-                    Get.off(() => const OrderTrackView(), arguments: args);
+                    Get.to(() => const OrderTrackView(), arguments: args);
                   }),
                 ),
                 Container(
