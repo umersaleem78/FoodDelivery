@@ -34,12 +34,11 @@ class OrdersView extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppWidgets.appTextWithoutClick(AppStrings.orderDate,
-                    color: AppColors.primaryTextColor, fontSize: 15),
+                    color: AppColors.textColor, fontSize: 15),
                 AppWidgets.appTextWithoutClick(
                     DateTimeUtils.changeDateFormat(model.orderDate),
-                    color: AppColors.primaryTextColor,
-                    fontSize: 15,
-                    isBold: true),
+                    color: AppColors.lightWhiteColor,
+                    fontSize: 15,),
               ],
             ),
           ),
@@ -49,12 +48,11 @@ class OrdersView extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppWidgets.appTextWithoutClick(AppStrings.orderTime,
-                    color: AppColors.primaryTextColor, fontSize: 15),
+                    color: AppColors.textColor, fontSize: 15),
                 AppWidgets.appTextWithoutClick(
                     DateTimeUtils.changeDateFormat(model.orderTime),
-                    color: AppColors.primaryTextColor,
-                    fontSize: 15,
-                    isBold: true),
+                    color: AppColors.lightWhiteColor,
+                    fontSize: 15),
               ],
             ),
           ),
@@ -64,11 +62,10 @@ class OrdersView extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppWidgets.appTextWithoutClick(AppStrings.orderStatus,
-                    color: AppColors.primaryTextColor, fontSize: 15),
+                    color: AppColors.textColor, fontSize: 15),
                 AppWidgets.appTextWithoutClick(model.orderStatus ?? "",
                     color: AppUtils.getColorBasedOnStatus(model.orderStatus),
-                    fontSize: 18,
-                    isBold: true),
+                    fontSize: 18,fontWeight: FontWeight.w500),
               ],
             ),
           ),
@@ -78,11 +75,10 @@ class OrdersView extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppWidgets.appTextWithoutClick(AppStrings.totalAmount,
-                    color: AppColors.primaryTextColor, fontSize: 15),
+                    color: AppColors.textColor, fontSize: 15),
                 AppWidgets.appTextWithoutClick(model.totalPrice ?? "",
-                    color: AppColors.primaryTextColor,
-                    fontSize: 18,
-                    isBold: true),
+                    color: AppColors.lightWhiteColor,
+                    fontSize: 18,fontWeight: FontWeight.w600),
               ],
             ),
           ),
@@ -90,7 +86,7 @@ class OrdersView extends HookWidget {
               alignment: Alignment.bottomRight,
               margin: const EdgeInsets.symmetric(vertical: 3),
               child: IconButton(
-                icon: const Icon(Icons.arrow_circle_right),
+                icon: Icon(Icons.arrow_circle_right,color: AppColors.orangeColor,),
                 onPressed: () {},
               )),
           Divider(
@@ -130,6 +126,7 @@ class OrdersView extends HookWidget {
     }, []);
 
     return Scaffold(
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
           child: VisibilityDetector(
         key: const Key('my-widget-key'),
@@ -141,9 +138,8 @@ class OrdersView extends HookWidget {
                     margin: const EdgeInsets.fromLTRB(20, 20, 0, 10),
                     alignment: Alignment.topLeft,
                     child: AppWidgets.appTextWithoutClick(myOrders.value,
-                        color: AppColors.primaryTextColor,
-                        fontSize: 25,
-                        isBold: true),
+                        color: AppColors.textColor,
+                        fontSize: 20,fontWeight: FontWeight.w500),
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -160,8 +156,8 @@ class OrdersView extends HookWidget {
                 child: AppWidgets.appTextWithoutClick(
                     AppStrings.pleaseLoginToViewThisPage,
                     fontSize: 18,
-                    isBold: true,
-                    color: AppColors.primaryTextColor),
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.textColor),
               ),
       )),
     );

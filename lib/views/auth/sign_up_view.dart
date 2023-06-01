@@ -41,7 +41,7 @@ class SignUpView extends HookWidget {
 
     var showPassword = true.obs;
     return Scaffold(
-      backgroundColor: AppColors.offWhiteColor,
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -81,6 +81,7 @@ class SignUpView extends HookWidget {
                       margin: const EdgeInsets.fromLTRB(0, 25, 0, 20),
                       child: AppWidgets.appText(AppStrings.alreadyHaveAnAccount,
                           isClickable: true,
+                          color: AppColors.textColor,
                           callBack: () =>
                               GoNavigation.off(() => const LoginView())),
                     ),

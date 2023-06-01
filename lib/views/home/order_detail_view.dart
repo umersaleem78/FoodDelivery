@@ -15,7 +15,9 @@ class OrderDetailView extends HookWidget {
 
   Widget fetchOrderItem(ItemsModel model) {
     return Card(
-      margin: EdgeInsets.zero,
+      elevation: 5,
+      color: AppColors.lightBlackColor,
+      margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
         child: Row(
@@ -26,7 +28,7 @@ class OrderDetailView extends HookWidget {
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.network(
                   model.image ?? "",
-                  height: 150.0,
+                  height: 125.0,
                   width: 100.0,
                 ),
               ),
@@ -36,29 +38,29 @@ class OrderDetailView extends HookWidget {
                 children: [
                   Container(
                     alignment: Alignment.topLeft,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
                     child: AppWidgets.appTextWithoutClick(model.name ?? "",
-                        isBold: true,
-                        fontSize: 18,
-                        color: AppColors.primaryTextColor),
+                        fontSize: 20,
+                        color: AppColors.textColor,
+                        fontWeight: FontWeight.w500),
                   ),
                   Container(
                     alignment: Alignment.topLeft,
                     margin:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                     child: AppWidgets.appTextWithoutClick(
                         "${model.currency} ${model.price}",
-                        fontSize: 18,
-                        color: AppColors.secondaryTextColor),
+                        fontSize: 12,
+                        color: AppColors.lightWhiteColor),
                   ),
                   Container(
                     alignment: Alignment.topLeft,
                     margin:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                     child: AppWidgets.appTextWithoutClick(
-                        "${AppStrings.quantity} ${model.selectedQuantity}",
-                        fontSize: 18,
-                        color: AppColors.primaryTextColor),
+                        "${AppStrings.quantity}: ${model.selectedQuantity}",
+                        fontSize: 14,
+                        color: AppColors.textColor),
                   ),
                 ],
               ),
@@ -70,15 +72,15 @@ class OrderDetailView extends HookWidget {
   }
 
   Widget fetchBottomRowWidget(String title, String amount,
-      {Color? color, bool isBold = true}) {
+      {Color? color, FontWeight fontWeight = FontWeight.w400}) {
     return SizedBox(
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         AppWidgets.appTextWithoutClick(title,
-            fontSize: 13, color: AppColors.primaryTextColor),
+            fontSize: 13, color: AppColors.textColor),
         AppWidgets.appTextWithoutClick(amount,
             fontSize: 18,
-            isBold: isBold,
-            color: color ?? AppColors.primaryTextColor)
+            fontWeight: fontWeight,
+            color: color ?? AppColors.lightWhiteColor)
       ]),
     );
   }
@@ -87,28 +89,43 @@ class OrderDetailView extends HookWidget {
   Widget build(BuildContext context) {
     final orderItem = Get.arguments['data'];
     return Scaffold(
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
           child: Column(
         children: [
-          AppWidgets.appHeader("", () => Get.back()),
-          Card(
-            margin: EdgeInsets.zero,
+          AppWidgets.appHeader(AppStrings.orderDetails, () => Get.back()),
+          Container(
+            margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            decoration: BoxDecoration(
+                color: AppColors.lightBlackColor,
+                borderRadius: BorderRadius.circular(8)),
             child: Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  fetchBottomRowWidget(AppStrings.orderDate,
-                      DateTimeUtils.changeDateFormat(orderItem.orderDate),
-                      isBold: false),
-                  fetchBottomRowWidget(AppStrings.orderTime,
-                      DateTimeUtils.changeDateFormat(orderItem.orderTime),
-                      isBold: false),
+                  fetchBottomRowWidget(
+                    AppStrings.orderDate,
+                    DateTimeUtils.changeDateFormat(orderItem.orderDate),
+                  ),
+                  fetchBottomRowWidget(
+                    AppStrings.orderTime,
+                    DateTimeUtils.changeDateFormat(orderItem.orderTime),
+                  ),
                   fetchBottomRowWidget(AppStrings.status, orderItem.orderStatus,
-                      color: AppUtils.getColorBasedOnStatus(
-                          orderItem.orderStatus)),
+                      color:
+                          AppUtils.getColorBasedOnStatus(orderItem.orderStatus),
+                      fontWeight: FontWeight.w500),
                 ],
               ),
             ),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.only(top: 10, left: 20),
+            child: AppWidgets.appText(AppStrings.items,
+                color: AppColors.textColor,
+                fontSize: 20,
+                fontWeight: FontWeight.w500),
           ),
           Expanded(
             child: Container(
@@ -121,24 +138,31 @@ class OrderDetailView extends HookWidget {
             ),
           ),
           Card(
-            margin: EdgeInsets.zero,
+            elevation: 5,
+            margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            color: AppColors.lightBlackColor,
             child: Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  fetchBottomRowWidget(AppStrings.totalItems,
-                      orderItem.cartItems.length.toString(),
-                      isBold: false),
                   fetchBottomRowWidget(
-                      AppStrings.subTotal, orderItem.totalPrice,
-                      isBold: false),
-                  fetchBottomRowWidget(AppStrings.tax, CartState.getTax(),
-                      isBold: false),
-                  fetchBottomRowWidget(AppStrings.deliveryCharges,
-                      CartState.getDeliveryCharges(),
-                      isBold: false),
+                    AppStrings.totalItems,
+                    orderItem.cartItems.length.toString(),fontWeight: FontWeight.w500
+                  ),
                   fetchBottomRowWidget(
-                      AppStrings.totalAmount, orderItem.totalPrice)
+                    AppStrings.subTotal,
+                    orderItem.totalPrice,fontWeight: FontWeight.w300
+                  ),
+                  fetchBottomRowWidget(
+                    AppStrings.tax,
+                    CartState.getTax(),fontWeight: FontWeight.w300
+                  ),
+                  fetchBottomRowWidget(
+                    AppStrings.deliveryCharges,
+                    CartState.getDeliveryCharges(),fontWeight: FontWeight.w300
+                  ),
+                  fetchBottomRowWidget(
+                      AppStrings.totalAmount, orderItem.totalPrice,fontWeight: FontWeight.w500)
                 ],
               ),
             ),

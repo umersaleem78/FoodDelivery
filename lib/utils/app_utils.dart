@@ -53,7 +53,7 @@ class AppUtils {
 
   static Color getColorBasedOnStatus(String? status) {
     if (status == null || status.isEmpty) {
-      return AppColors.primaryTextColor;
+      return AppColors.orangeColor;
     }
 
     if (status == AppConstants.statusPreparing) {
@@ -61,10 +61,10 @@ class AppUtils {
     } else if (status == AppConstants.statusOnRoute) {
       return AppColors.accentColor;
     } else if (status == AppConstants.statusDelivered) {
-      return AppColors.secondaryTextColor;
+      return AppColors.lightGrey;
     }
     // default case => 'Pending'
-    return AppColors.primaryDarkColor;
+    return AppColors.orangeColor;
   }
 
   static void shareApp() {

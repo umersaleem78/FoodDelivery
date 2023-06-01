@@ -18,4 +18,8 @@ class AppColors {
   static Color orangeColor = HexColor.fromHex("#FE724C");
   static Color textColor = HexColor.fromHex("#ADADAD");
   static Color lightWhiteColor = HexColor.fromHex("#EAEAEA");
+  static Color blackColor = HexColor.fromHex("#272d2f");
+  static Color lightBlackColor = HexColor.fromHex("#333b3e");
+  static Color lightGrey = HexColor.fromHex("#4b565f");
+  static Color goldenYellow = HexColor.fromHex("#f6bd15");
 }

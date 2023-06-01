@@ -20,8 +20,9 @@ class SettingsView extends HookWidget {
     return InkWell(
       onTap: () => callback(),
       child: Card(
+        color: AppColors.lightBlackColor,
         elevation: 2,
-        margin: EdgeInsets.zero,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         clipBehavior: Clip.antiAlias,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -31,20 +32,20 @@ class SettingsView extends HookWidget {
               Icon(
                 prefixIcon,
                 size: 24,
-                color: AppColors.primaryColor,
+                color: AppColors.orangeColor,
               ),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                   child: AppWidgets.appTextWithoutClick(title,
-                      color: AppColors.primaryTextColor, fontSize: 18),
+                      color: AppColors.textColor, fontSize: 18),
                 ),
               ),
               suffixIcon != null
                   ? Icon(
                       suffixIcon,
                       size: 24,
-                      color: AppColors.secondaryTextColor,
+                      color: AppColors.orangeColor,
                     )
                   : Container(),
             ],
@@ -69,6 +70,7 @@ class SettingsView extends HookWidget {
     }, []);
 
     return Scaffold(
+      backgroundColor: AppColors.blackColor,
       body: SafeArea(
         child: VisibilityDetector(
           key: const Key('my-widget-key'),
@@ -82,14 +84,15 @@ class SettingsView extends HookWidget {
                         margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                         child: AppWidgets.appTextWithoutClick(
                             AppStrings.settings,
-                            fontSize: 30,
-                            isBold: true)),
+                            color: AppColors.textColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500)),
                     Container(
                       margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                       child: fetchSettingsRowWidget(
                           AppStrings.profile,
                           Icons.person,
-                          null,
+                          Icons.arrow_right_outlined,
                           () => GoNavigation.to(() => const ProfileView())),
                     ),
                     Container(
@@ -112,42 +115,17 @@ class SettingsView extends HookWidget {
                         margin: const EdgeInsets.all(20),
                         child: AppWidgets.appTextWithoutClick(
                             AppStrings.settings,
-                            fontSize: 30,
-                            color: AppColors.primaryTextColor,
-                            isBold: true),
+                            fontSize: 20,
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.w500),
                       ),
-                      InkWell(
-                        onTap: () => GoNavigation.to(() => const LoginView())
-                            .then((value) => checkLoginStatus()),
-                        child: Card(
-                          elevation: 2,
-                          margin: EdgeInsets.zero,
-                          clipBehavior: Clip.antiAlias,
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.login,
-                                  size: 24,
-                                  color: AppColors.primaryColor,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: AppWidgets.appTextWithoutClick(
-                                        AppStrings.login,
-                                        color: AppColors.primaryTextColor,
-                                        fontSize: 18),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      Container(
+                        child: fetchSettingsRowWidget(
+                            AppStrings.login,
+                            Icons.login,
+                            null,
+                            () => GoNavigation.to(() => const LoginView())
+                                .then((value) => checkLoginStatus())),
                       ),
                     ],
                   ),
