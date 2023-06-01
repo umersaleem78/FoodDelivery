@@ -11,6 +11,9 @@ class ItemsModel {
   String? id;
   String? coverImage;
   String? description;
+  String? calories;
+  String? preparationTime;
+  num? rating;
 
   ItemsModel(
       {this.currency,
@@ -21,7 +24,10 @@ class ItemsModel {
       this.selectedQuantity,
       this.id,
       this.coverImage,
-      this.description});
+      this.description,
+      this.calories,
+      this.preparationTime,
+      this.rating});
 
   ItemsModel copyWith(
       {String? currency,
@@ -32,7 +38,10 @@ class ItemsModel {
       int? selectedQuantity,
       String? id,
       String? coverImage,
-      String? description}) {
+      String? description,
+      String? calories,
+      String? preparationTime,
+      num? rating}) {
     return ItemsModel(
         currency: currency ?? this.currency,
         image: image ?? this.image,
@@ -42,7 +51,10 @@ class ItemsModel {
         selectedQuantity: selectedQuantity ?? this.selectedQuantity,
         id: id ?? this.id,
         coverImage: coverImage ?? this.coverImage,
-        description: description ?? this.description);
+        description: description ?? this.description,
+        calories: calories ?? this.calories,
+        preparationTime: preparationTime ?? this.preparationTime,
+        rating: rating ?? this.rating);
   }
 
   Map<String, dynamic> toMap() {
@@ -55,7 +67,10 @@ class ItemsModel {
       'selectedQuantity': selectedQuantity,
       'id': id,
       'coverImage': coverImage,
-      'description': description
+      'description': description,
+      'calories': calories,
+      'preparationTime': preparationTime,
+      'rating': rating
     };
   }
 
@@ -73,7 +88,12 @@ class ItemsModel {
         coverImage:
             map['coverImage'] != null ? map['coverImage'] as String : null,
         description:
-            map['description'] != null ? map['description'] as String : null);
+            map['description'] != null ? map['description'] as String : null,
+        calories: map['calories'] != null ? map['calories'] as String : null,
+        preparationTime: map['preparationTime'] != null
+            ? map['preparationTime'] as String
+            : null,
+        rating: map['rating'] != null ? map['rating'] as num : null);
   }
 
   String toJson() => json.encode(toMap());

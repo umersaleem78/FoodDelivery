@@ -21,4 +21,5 @@ class AppColors {
   static Color blackColor = HexColor.fromHex("#272d2f");
   static Color lightBlackColor = HexColor.fromHex("#333b3e");
   static Color lightGrey = HexColor.fromHex("#4b565f");
+  static Color goldenYellow = HexColor.fromHex("#f6bd15");
 }

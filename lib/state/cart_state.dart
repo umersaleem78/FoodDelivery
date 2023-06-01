@@ -1,7 +1,6 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:food_app/models/items_model.dart';
 import 'package:food_app/utils/app_strings.dart';
-import 'package:food_app/utils/app_utils.dart';
 
 class CartState {
   static final cartItemsList = [];
@@ -24,11 +23,11 @@ class CartState {
     if (cartItemsList.contains(model)) {
       cartItemsList.remove(model);
       // don't show snackbar when removing from cart view
-      if (showSnackbar) {
-        final message = "${model.name} ${AppStrings.removedSuccessfully}";
-        AppUtils.showSnackbar(AppStrings.info, message,
-            showButton: false, callback: () {});
-      }
+      // if (showSnackbar) {
+      //   final message = "${model.name} ${AppStrings.removedSuccessfully}";
+      //   AppUtils.showSnackbar(AppStrings.info, message,
+      //       showButton: false, callback: () {});
+      // }
     }
   }
 
