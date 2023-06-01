@@ -9,6 +9,7 @@ import 'package:food_app/utils/app_strings.dart';
 import 'package:food_app/utils/go_navigation.dart';
 import 'package:food_app/views/home/dashboard_view.dart';
 import 'package:food_app/views/home/location_view.dart';
+import 'package:food_app/views/home/order_success_view.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:get/get.dart';
 
@@ -90,7 +91,7 @@ class CheckoutView extends HookWidget {
       EasyLoading.showSuccess(AppStrings.orderPlacedSuccess);
       CartState.clearCart();
       if (response != null && response) {
-        Get.offAll(() => const DashboardView());
+        Get.offAll(() => const OrderSuccessView());
       }
     }
 

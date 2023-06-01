@@ -36,7 +36,7 @@ class HomeView extends HookWidget {
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(model.image ?? ""),
-                radius: 25,
+                radius: 35,
               ),
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -45,7 +45,7 @@ class HomeView extends HookWidget {
                         ? AppColors.orangeColor
                         : AppColors.textColor,
                     fontSize: 12,
-                    isBold: model.isSelected ? true : false),
+                    fontWeight: model.isSelected ? FontWeight.w600 : FontWeight.w300),
               ),
             ],
           )),
@@ -117,8 +117,10 @@ class HomeView extends HookWidget {
                     ),
                     Container(
                       alignment: Alignment.topLeft,
-                      child: AppWidgets.appTextWithoutClick(model.quantity ?? "",
-                          fontSize: 12, color: AppColors.lightWhiteColor),
+                      child: AppWidgets.appTextWithoutClick(
+                          model.quantity ?? "",
+                          fontSize: 12,
+                          color: AppColors.lightWhiteColor),
                     ),
                   ],
                 ),
@@ -308,15 +310,15 @@ class HomeView extends HookWidget {
               Obx(
                 () => Container(
                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  height: 85,
+                  height: 100,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.categoriesList.value.length,
                       itemBuilder: ((context, index) {
+                        final item = controller.categoriesList.value[index];
                         return fetchCategoryItem(
-                          controller.categoriesList.value[index],
-                          (id) => updateSelectedCategoryItem(
-                              controller.categoriesList.value[index]),
+                          item,
+                          (id) => updateSelectedCategoryItem(item),
                           currentSelectedCategoryIndex.value,
                         );
                       })),
