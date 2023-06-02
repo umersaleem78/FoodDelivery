@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/controllers/favourites_controller.dart';
-import 'package:food_app/local/isar_operations.dart';
 import 'package:food_app/models/items_model.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:get/get.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../utils/app_strings.dart';
 import '../../widgets/app_widgets.dart';
@@ -110,7 +108,8 @@ class FavouriteView extends HookWidget {
                   color: AppColors.textColor,
                   fontSize: 20,
                   fontWeight: FontWeight.w500)),
-          controller.favouritesList.value.length > 0
+          // ignore: invalid_use_of_protected_member
+          controller.favouritesList.value.isNotEmpty
               ? Obx(
                   () => Expanded(
                     child: Container(

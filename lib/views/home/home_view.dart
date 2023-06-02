@@ -378,7 +378,6 @@ class HomeView extends HookWidget {
                         final item = controller
                             .categoriesList[currentSelectedCategoryIndex.value]
                             .items[index];
-                        print('Item => ${item.name}');
                         return Obx(
                           () => fetchItemView(item, () => updateCartView(),
                               updateItemsList.value),
