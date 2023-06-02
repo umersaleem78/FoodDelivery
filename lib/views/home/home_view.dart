@@ -6,6 +6,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/controllers/home_controller.dart';
+import 'package:food_app/local/isar_operations.dart';
 import 'package:food_app/models/banners_model.dart';
 import 'package:food_app/state/cart_state.dart';
 import 'package:food_app/utils/app_colors.dart';
@@ -58,6 +59,10 @@ class HomeView extends HookWidget {
     final selectedQuantity = isItemInCart.value
         ? CartState.getItemQuantity(model)
         : model.selectedQuantity;
+    var isAlreadyFavourite = false.obs;
+    IsarOperations.checkItemExists(model).then((value) {
+      isAlreadyFavourite.value = value;
+    });
     return InkWell(
       onTap: () {
         final args = {'data': model};
@@ -96,14 +101,38 @@ class HomeView extends HookWidget {
                       },
                     )),
               ),
-              Container(
-                alignment: Alignment.topLeft,
-                margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                child: AppWidgets.appTextWithoutClick(model.name ?? "",
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    isEllipsisText: true,
-                    color: AppColors.textColor),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    child: AppWidgets.appTextWithoutClick(model.name ?? "",
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        isEllipsisText: true,
+                        color: AppColors.textColor),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      IsarOperations.handleFavouriteItemClick(model,
+                          (isRemoved) {
+                        callback();
+                      });
+                    },
+                    child: Obx(
+                      () => Container(
+                        margin: const EdgeInsets.all(5),
+                        child: Icon(
+                          Icons.favorite,
+                          color: isAlreadyFavourite.value
+                              ? AppColors.statusColorPending
+                              : AppColors.textColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Container(
                 margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -214,9 +243,6 @@ class HomeView extends HookWidget {
           currentSelectedCategoryIndex.value = 0;
         });
       }
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        //startBannerTimer();
-      });
       return null;
     }, []);
 
@@ -340,7 +366,7 @@ class HomeView extends HookWidget {
                   child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: (.37 / .4)),
+                              crossAxisCount: 2, childAspectRatio: (.35 / .4)),
                       itemCount: currentSelectedCategoryIndex.value == -1
                           ? 0
                           : controller
@@ -352,6 +378,7 @@ class HomeView extends HookWidget {
                         final item = controller
                             .categoriesList[currentSelectedCategoryIndex.value]
                             .items[index];
+                        print('Item => ${item.name}');
                         return Obx(
                           () => fetchItemView(item, () => updateCartView(),
                               updateItemsList.value),

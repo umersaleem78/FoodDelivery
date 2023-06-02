@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_strings.dart';
+import 'package:food_app/views/home/favourite_view.dart';
 import 'package:food_app/views/home/home_view.dart';
 import 'package:food_app/views/home/orders_view.dart';
 import 'package:food_app/views/home/settings_view.dart';
@@ -17,6 +18,7 @@ class DashboardView extends HookWidget {
   Widget build(BuildContext context) {
     List<Widget> pages = const <Widget>[
       HomeView(),
+      FavouriteView(),
       OrdersView(),
       SettingsView(),
     ];
@@ -38,6 +40,8 @@ class DashboardView extends HookWidget {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: const Icon(Icons.home_filled), label: AppStrings.home),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.favorite), label: AppStrings.favourite),
           BottomNavigationBarItem(
               icon: const Icon(Icons.shopping_bag), label: AppStrings.orders),
           BottomNavigationBarItem(

@@ -1,5 +1,5 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:food_app/local/local_storage.dart';
+import 'package:food_app/local/prefs.dart';
 import 'package:food_app/state/app_state.dart';
 import 'package:food_app/state/cart_state.dart';
 import 'package:food_app/utils/go_navigation.dart';
@@ -15,7 +15,7 @@ class SettingsController extends GetxController {
         (res) {
       if (res) {
         AppState.clearAppState();
-        LocalStorage.clearPrefs();
+        Prefs.clearPrefs();
         CartState.clearCart();
         EasyLoading.showSuccess(AppStrings.logoutSuccess);
         callback();

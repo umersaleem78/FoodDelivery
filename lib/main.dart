@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/controllers/cart_controller.dart';
 import 'package:food_app/controllers/checkout_controller.dart';
 import 'package:food_app/controllers/email_verification_controller.dart';
+import 'package:food_app/controllers/favourites_controller.dart';
 import 'package:food_app/controllers/home_controller.dart';
 import 'package:food_app/controllers/location_controller.dart';
 import 'package:food_app/controllers/login_controller.dart';
@@ -14,13 +15,17 @@ import 'package:food_app/controllers/orders_controller.dart';
 import 'package:food_app/controllers/products_controller.dart';
 import 'package:food_app/controllers/settings_controller.dart';
 import 'package:food_app/controllers/sign_up_controller.dart';
-import 'package:food_app/local/local_storage.dart';
+import 'package:food_app/local/isar_operations.dart';
+import 'package:food_app/local/prefs.dart';
+import 'package:food_app/models/items_model.dart';
 import 'package:food_app/models/user_model.dart';
 import 'package:food_app/state/app_state.dart';
 import 'package:food_app/views/splash_view.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:isar/isar.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:path_provider/path_provider.dart';
 import 'constants/app_constants.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
@@ -28,9 +33,14 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await LocalStorage.initializePrefs();
+  await Prefs.initializePrefs();
+  final dir = await getApplicationDocumentsDirectory();
+  IsarOperations.isar = await Isar.open(
+    [ItemsModelSchema],
+    directory: dir.path,
+  );
   // load user model data if exists
-  var userData = LocalStorage.fetchData(AppConstants.userData);
+  var userData = Prefs.fetchData(AppConstants.userData);
   if (userData != null) {
     AppState.userModel = UserModel.fromJson(jsonDecode(userData));
   }
@@ -49,6 +59,7 @@ void main() async {
   Get.put(OrdersController());
   Get.put(EmailVerificationController());
   Get.put(OrderTrackController());
+  Get.put(FavouritesController());
   runApp(const MyApp());
 }
 

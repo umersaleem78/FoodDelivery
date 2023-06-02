@@ -1,7 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:isar/isar.dart';
+
+part 'items_model.g.dart';
+
+@collection
 class ItemsModel {
+  Id modelId = Isar.autoIncrement;
   String? currency;
   String? image;
   String? name;
@@ -16,7 +22,7 @@ class ItemsModel {
   double? rating;
 
   ItemsModel(
-      {this.currency,
+      this.currency,
       this.image,
       this.name,
       this.price,
@@ -27,7 +33,7 @@ class ItemsModel {
       this.description,
       this.calories,
       this.preparationTime,
-      this.rating});
+      this.rating);
 
   ItemsModel copyWith(
       {String? currency,
@@ -43,18 +49,18 @@ class ItemsModel {
       int? preparationTime,
       double? rating}) {
     return ItemsModel(
-        currency: currency ?? this.currency,
-        image: image ?? this.image,
-        name: name ?? this.name,
-        price: price ?? this.price,
-        quantity: quantity ?? this.quantity,
-        selectedQuantity: selectedQuantity ?? this.selectedQuantity,
-        id: id ?? this.id,
-        coverImage: coverImage ?? this.coverImage,
-        description: description ?? this.description,
-        calories: calories ?? this.calories,
-        preparationTime: preparationTime ?? this.preparationTime,
-        rating: rating ?? this.rating);
+        currency ?? this.currency,
+        image ?? this.image,
+        name ?? this.name,
+        price ?? this.price,
+        quantity ?? this.quantity,
+        selectedQuantity ?? this.selectedQuantity,
+        id ?? this.id,
+        coverImage ?? this.coverImage,
+        description ?? this.description,
+        calories ?? this.calories,
+        preparationTime ?? this.preparationTime,
+        rating ?? this.rating);
   }
 
   Map<String, dynamic> toMap() {
@@ -76,24 +82,18 @@ class ItemsModel {
 
   factory ItemsModel.fromMap(Map<String, dynamic> map) {
     return ItemsModel(
-        currency: map['currency'] != null ? map['currency'] as String : null,
-        image: map['image'] != null ? map['image'] as String : null,
-        name: map['name'] != null ? map['name'] as String : null,
-        price: map['price'] != null ? map['price'] as int : null,
-        quantity: map['quantity'] != null ? map['quantity'] as String : null,
-        selectedQuantity: map['selectedQuantity'] != null
-            ? map['selectedQuantity'] as int
-            : null,
-        id: map['id'] != null ? map['id'] as String : null,
-        coverImage:
-            map['coverImage'] != null ? map['coverImage'] as String : null,
-        description:
-            map['description'] != null ? map['description'] as String : null,
-        calories: map['calories'] != null ? map['calories'] as String : null,
-        preparationTime: map['preparationTime'] != null
-            ? map['preparationTime'] as int
-            : null,
-        rating: map['rating'] != null ? map['rating'] as double : null);
+        map['currency'] != null ? map['currency'] as String : null,
+        map['image'] != null ? map['image'] as String : null,
+        map['name'] != null ? map['name'] as String : null,
+        map['price'] != null ? map['price'] as int : null,
+        map['quantity'] != null ? map['quantity'] as String : null,
+        map['selectedQuantity'] != null ? map['selectedQuantity'] as int : null,
+        map['id'] != null ? map['id'] as String : null,
+        map['coverImage'] != null ? map['coverImage'] as String : null,
+        map['description'] != null ? map['description'] as String : null,
+        map['calories'] != null ? map['calories'] as String : null,
+        map['preparationTime'] != null ? map['preparationTime'] as int : null,
+        map['rating'] != null ? map['rating'] as double : null);
   }
 
   String toJson() => json.encode(toMap());

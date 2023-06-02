@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:food_app/constants/app_constants.dart';
-import 'package:food_app/local/local_storage.dart';
+import 'package:food_app/local/prefs.dart';
 import 'package:food_app/models/user_model.dart';
 import 'package:food_app/state/app_state.dart';
 import 'package:food_app/utils/app_strings.dart';
@@ -74,6 +74,6 @@ class LoginController extends GetxController {
   }
 
   void saveUserInfo(UserModel model) async {
-    await LocalStorage.storeData(AppConstants.userData, jsonEncode(model));
+    await Prefs.storeData(AppConstants.userData, jsonEncode(model));
   }
 }

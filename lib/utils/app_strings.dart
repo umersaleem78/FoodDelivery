@@ -1,6 +1,7 @@
 class AppStrings {
   // Bottom Nav Names
   static String home = "Home";
+  static String favourite = "Favourite";
   static String categories = "Categories";
   static String orders = "0rders";
   static String settings = "Settings";
@@ -116,4 +117,9 @@ class AppStrings {
       "Invalid order id found. Please try again";
   static String timeUnit = "mins";
   static String homeCity = "City";
+  static String unableToAddFavorite =
+      "Unable to add item as favorite.Please try again";
+  static String removedFromFavourites = "Removed from favourites";
+  static String addedInFavourites = "Added in favourites";
+  static String favourites = "Favourites";
 }
