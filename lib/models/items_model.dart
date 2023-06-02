@@ -12,8 +12,8 @@ class ItemsModel {
   String? coverImage;
   String? description;
   String? calories;
-  num? preparationTime;
-  num? rating;
+  int? preparationTime;
+  double? rating;
 
   ItemsModel(
       {this.currency,
@@ -40,8 +40,8 @@ class ItemsModel {
       String? coverImage,
       String? description,
       String? calories,
-      num? preparationTime,
-      num? rating}) {
+      int? preparationTime,
+      double? rating}) {
     return ItemsModel(
         currency: currency ?? this.currency,
         image: image ?? this.image,
@@ -91,9 +91,9 @@ class ItemsModel {
             map['description'] != null ? map['description'] as String : null,
         calories: map['calories'] != null ? map['calories'] as String : null,
         preparationTime: map['preparationTime'] != null
-            ? map['preparationTime'] as num
+            ? map['preparationTime'] as int
             : null,
-        rating: map['rating'] != null ? map['rating'] as num : null);
+        rating: map['rating'] != null ? map['rating'] as double : null);
   }
 
   String toJson() => json.encode(toMap());
