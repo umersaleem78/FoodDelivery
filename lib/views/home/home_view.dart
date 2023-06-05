@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:badges/badges.dart';
-import 'package:card_swiper/card_swiper.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,7 +18,6 @@ import 'package:food_app/views/home/product_detail_view.dart';
 import 'package:food_app/views/home/profile_view.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:get/get.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../models/categories_model.dart';
 import '../../models/items_model.dart';
@@ -241,12 +239,10 @@ class HomeView extends HookWidget {
         final selectectedIndex = controller.getCurrentSelectedCategory();
         currentSelectedCategoryIndex.value = selectectedIndex;
       }
-      print('Cart Items => ${totalCartItems.value}');
     }
 
     // update cart view
     void updateCartView() {
-      print('Re triggered');
       updateBasketNumber();
       updateItemsList.value = !updateItemsList.value;
     }

@@ -105,6 +105,7 @@ class FavouriteView extends HookWidget {
           state.value = ResponseState.noDataFound;
         }
       });
+      return null;
     }, [fetchUpdatedList]);
 
     void updateFavouritesList(String id) {
