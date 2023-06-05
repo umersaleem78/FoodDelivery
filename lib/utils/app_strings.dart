@@ -123,4 +123,12 @@ class AppStrings {
   static String addedInFavourites = "Added in favourites";
   static String favourites = "Favourites";
   static String noFavouritesFound = "No favourites found";
+  static String cancelOrder = "Cancel order";
+  static String cancelOrderTitle = "Please select cancellation reason";
+  // cancellation reasons
+  static String waitingForLongTime = "Waiting for long time";
+  static String unableToContactRider = "Unable to contact delivery guy";
+  static String wrongAddressShown = "Wrong address shown";
+  static String priceNotReasonable = "The price is not reasonable";
+  static String justCancel = "I just want to cancel";
 }

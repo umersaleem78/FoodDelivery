@@ -4,6 +4,7 @@ import 'package:food_app/models/items_model.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_utils.dart';
 import 'package:food_app/utils/date_time_utils.dart';
+import 'package:food_app/views/home/cancel_order_view.dart';
 import 'package:food_app/views/home/order_track_view.dart';
 import 'package:food_app/widgets/app_widgets.dart';
 import 'package:get/get.dart';
@@ -132,6 +133,31 @@ class OrderDetailView extends HookWidget {
                           margin: const EdgeInsets.only(top: 10),
                           child: Icon(
                             Icons.delivery_dining,
+                            color: AppColors.orangeColor,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          child: Icon(
+                            Icons.arrow_right,
+                            color: AppColors.orangeColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      final args = {'data': orderItem.orderId};
+                      Get.to(() => const CancelOrderView(), arguments: args);
+                    },
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          child: Icon(
+                            Icons.cancel,
                             color: AppColors.orangeColor,
                           ),
                         ),
