@@ -128,132 +128,146 @@ class CartView extends HookWidget {
 
     return Scaffold(
       backgroundColor: AppColors.blackColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            AppWidgets.appHeader(AppStrings.cart, () => Get.back(),
-                textColor: AppColors.textColor),
-            Obx(
-              () => Container(
-                alignment: Alignment.topLeft,
-                margin: const EdgeInsets.fromLTRB(20, 20, 0, 0),
-                child: AppWidgets.appText(
-                    "${AppStrings.totalItems}: (${controller.cartItemsList.value.length})",
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.lightWhiteColor),
-              ),
-            ),
-            Obx(
-              () => Expanded(
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                  child: ListView.builder(
-                      itemCount: controller.cartItemsList.value.length,
-                      itemBuilder: ((context, index) {
-                        return fetchCartItem(
-                            controller.cartItemsList.value[index], () {
-                          updateData.value = !updateData.value;
-                          updateCartData();
-                        });
-                      })),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: SafeArea(
+            child: Column(
+              children: [
+                AppWidgets.appHeader(AppStrings.cart, () => Get.back(),
+                    textColor: AppColors.textColor),
+                Obx(
+                  () => Container(
+                    alignment: Alignment.topLeft,
+                    margin: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+                    child: AppWidgets.appText(
+                        "${AppStrings.totalItems}: (${controller.cartItemsList.value.length})",
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.lightWhiteColor),
+                  ),
                 ),
-              ),
-            ),
-            Obx(
-              () => controller.cartItemsList.value.isNotEmpty
-                  ? Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Card(
-                        color: AppColors.lightBlackColor,
-                        elevation: 5,
-                        child: Container(
-                          margin: const EdgeInsets.all(5),
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                Obx(
+                  () => Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                      child: ListView.builder(
+                          itemCount: controller.cartItemsList.value.length,
+                          itemBuilder: ((context, index) {
+                            return fetchCartItem(
+                                controller.cartItemsList.value[index], () {
+                              updateData.value = !updateData.value;
+                              updateCartData();
+                            });
+                          })),
+                    ),
+                  ),
+                ),
+                Obx(
+                  () => controller.cartItemsList.value.isNotEmpty
+                      ? Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Card(
+                            color: AppColors.lightBlackColor,
+                            elevation: 5,
+                            child: Container(
+                              margin: const EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  AppWidgets.appText(AppStrings.subTotal,
-                                      fontSize: 15, color: AppColors.textColor),
-                                  Obx(
-                                    () => AppWidgets.appText(
-                                        controller.subTotal.value,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.lightWhiteColor),
-                                  )
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AppWidgets.appText(AppStrings.subTotal,
+                                          fontSize: 15,
+                                          color: AppColors.textColor),
+                                      Obx(
+                                        () => AppWidgets.appText(
+                                            controller.subTotal.value,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.lightWhiteColor),
+                                      )
+                                    ],
+                                  ),
+                                  const Divider(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AppWidgets.appText(
+                                          AppStrings.deliveryCharges,
+                                          fontSize: 15,
+                                          color: AppColors.textColor),
+                                      AppWidgets.appText(
+                                          CartState.getDeliveryCharges(),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.lightWhiteColor)
+                                    ],
+                                  ),
+                                  const Divider(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AppWidgets.appText(AppStrings.tax,
+                                          fontSize: 15,
+                                          color: AppColors.textColor),
+                                      AppWidgets.appText(CartState.getTax(),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.lightWhiteColor)
+                                    ],
+                                  ),
+                                  const Divider(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AppWidgets.appText(AppStrings.totalAmount,
+                                          fontSize: 15,
+                                          color: AppColors.textColor),
+                                      Obx(
+                                        () => AppWidgets.appText(
+                                            controller.totalAmount.value,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.lightWhiteColor),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
-                              const Divider(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  AppWidgets.appText(AppStrings.deliveryCharges,
-                                      fontSize: 15, color: AppColors.textColor),
-                                  AppWidgets.appText(
-                                      CartState.getDeliveryCharges(),
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.lightWhiteColor)
-                                ],
-                              ),
-                              const Divider(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  AppWidgets.appText(AppStrings.tax,
-                                      fontSize: 15, color: AppColors.textColor),
-                                  AppWidgets.appText(CartState.getTax(),
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.lightWhiteColor)
-                                ],
-                              ),
-                              const Divider(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  AppWidgets.appText(AppStrings.totalAmount,
-                                      fontSize: 15, color: AppColors.textColor),
-                                  Obx(
-                                    () => AppWidgets.appText(
-                                        controller.totalAmount.value,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.lightWhiteColor),
-                                  )
-                                ],
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    )
-                  : Container(),
-            ),
-            InkWell(
-              onTap: () => GoNavigation.to(() => const CheckoutView()),
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(22, 20, 22, 0),
-                width: double.infinity,
-                alignment: Alignment.center,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: AppColors.orangeColor,
+                        )
+                      : Container(),
                 ),
-                child: AppWidgets.appTextWithoutClick(AppStrings.checkout,
-                    color: AppColors.lightWhiteColor),
-              ),
+                controller.cartItemsList.value.isNotEmpty
+                    ? InkWell(
+                        onTap: () =>
+                            GoNavigation.to(() => const CheckoutView()),
+                        child: Container(
+                          margin: const EdgeInsets.all(20),
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: AppColors.orangeColor,
+                          ),
+                          child: AppWidgets.appTextWithoutClick(
+                              AppStrings.checkout,
+                              color: AppColors.lightWhiteColor),
+                        ),
+                      )
+                    : Container(),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

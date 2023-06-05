@@ -1,7 +1,9 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:food_app/models/banners_model.dart';
 import 'package:food_app/utils/app_strings.dart';
 import 'package:get/get.dart';
 import '../constants/app_constants.dart';
@@ -15,26 +17,30 @@ class HomeController extends GetxController {
     firestoreInstance ??= FirebaseFirestore.instance;
   }
 
-  final bannersList = [].obs;
   final categoriesList = [].obs;
 
-  Future<dynamic> fetchBannerInfo() async {
-    EasyLoading.show();
-    final response = await firestoreInstance
-        ?.collection(AppConstants.collectionBanners)
-        .get();
-    EasyLoading.dismiss();
-    if (response != null) {
-      // clear the previous list
-      bannersList.clear();
-      final documents = response.docs;
-      final list = documents.map((doc) => doc.data()).toList();
-      for (var item in list) {
-        bannersList.add(item);
+  Future<List<dynamic>> fetchBannerInfo() async {
+    var list = [];
+    try {
+      EasyLoading.show();
+      final response = await firestoreInstance
+          ?.collection(AppConstants.collectionBanners)
+          .get();
+      EasyLoading.dismiss();
+      if (response != null) {
+        final documents = response.docs;
+        for (var item in documents) {
+          list.add(BannersModel.fromJson(item.data()));
+        }
+      } else {
+        EasyLoading.showError(AppStrings.failToLoadBanners);
       }
-    } else {
-      EasyLoading.showError(AppStrings.failToLoadBanners);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Exception caught => $e');
+      }
     }
+    return list;
   }
 
   Future<dynamic> fetchCategories() async {

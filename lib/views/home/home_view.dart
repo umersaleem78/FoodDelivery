@@ -27,6 +27,24 @@ import '../../models/items_model.dart';
 class HomeView extends HookWidget {
   const HomeView({super.key});
 
+  Widget fetchBannerItem(BannersModel model) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: Stack(
+        fit: StackFit.passthrough,
+        children: [
+          ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: FadeInImage.assetNetwork(
+                placeholder: AppImages.imagePlaceholder,
+                image: model.image ?? "",
+                fit: BoxFit.fill,
+              )),
+        ],
+      ),
+    );
+  }
+
   Widget fetchCategoryItem(
       CategoriesModel model, Function callback, selectedId) {
     return InkWell(
@@ -35,9 +53,15 @@ class HomeView extends HookWidget {
           margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
           child: Column(
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(model.image ?? ""),
-                radius: 35,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: FadeInImage.assetNetwork(
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
+                    fadeInCurve: Curves.easeIn,
+                    placeholder: AppImages.imagePlaceholder,
+                    image: model.image ?? ""),
               ),
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -54,7 +78,7 @@ class HomeView extends HookWidget {
     );
   }
 
-  Widget fetchItemView(ItemsModel model, Function callback, bool state) {
+  Widget fetchProductItem(ItemsModel model, Function callback, bool state) {
     final isItemInCart = CartState.isItemInCart(model).obs;
     final selectedQuantity = isItemInCart.value
         ? CartState.getItemQuantity(model)
@@ -101,38 +125,35 @@ class HomeView extends HookWidget {
                       },
                     )),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                    child: AppWidgets.appTextWithoutClick(model.name ?? "",
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        isEllipsisText: true,
-                        color: AppColors.textColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      IsarOperations.handleFavouriteItemClick(model,
-                          (isRemoved) {
-                        callback();
-                      });
-                    },
-                    child: Obx(
-                      () => Container(
-                        margin: const EdgeInsets.all(5),
-                        child: Icon(
-                          Icons.favorite,
-                          color: isAlreadyFavourite.value
-                              ? AppColors.statusColorPending
-                              : AppColors.textColor,
-                        ),
+              Container(
+                alignment: Alignment.topLeft,
+                margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                child: AppWidgets.appTextWithoutClick(model.name ?? "",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    isEllipsisText: true,
+                    color: AppColors.textColor),
+              ),
+              Container(
+                alignment: Alignment.bottomRight,
+                child: InkWell(
+                  onTap: () {
+                    IsarOperations.handleFavouriteItemClick(model, (isRemoved) {
+                      callback();
+                    });
+                  },
+                  child: Obx(
+                    () => Container(
+                      margin: const EdgeInsets.all(5),
+                      child: Icon(
+                        Icons.favorite,
+                        color: isAlreadyFavourite.value
+                            ? AppColors.statusColorPending
+                            : AppColors.textColor,
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
               Container(
                 margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -190,32 +211,28 @@ class HomeView extends HookWidget {
     );
   }
 
-  Widget fetchBannerView(data) {
-    final bannerModel = BannersModel.fromJson(data);
-    return Container(
-      margin: const EdgeInsets.fromLTRB(10, 0, 5, 0),
-      child: Stack(
-        fit: StackFit.passthrough,
-        children: [
-          ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: FadeInImage.assetNetwork(
-                placeholder: AppImages.imagePlaceholder,
-                image: bannerModel.image ?? "",
-                fit: BoxFit.fill,
-              )),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
-    final totalCartItems = useState(0);
-    final updateItemsList = false.obs;
-    final currentSelectedCategoryIndex = useState(-1);
     final currentBannerIndex = useState(0);
+    final bannersList = useState([]);
+    final categoriesList = useState([]);
+    final totalCartItems = useState(0);
+    final updateItemsList = useState(false);
+    final currentSelectedCategoryIndex = useState(-1);
+
+    useEffect(() {
+      // load banners
+      controller.fetchBannerInfo().then((value) {
+        bannersList.value = value;
+      });
+
+      controller.fetchCategories().then((value) {
+        categoriesList.value = value;
+        currentSelectedCategoryIndex.value = 0;
+      });
+      return null;
+    }, [null]);
 
     void updateBasketNumber({bool updateCategorySelection = false}) {
       totalCartItems.value = CartState.cartItemsList.length;
@@ -224,27 +241,15 @@ class HomeView extends HookWidget {
         final selectectedIndex = controller.getCurrentSelectedCategory();
         currentSelectedCategoryIndex.value = selectectedIndex;
       }
+      print('Cart Items => ${totalCartItems.value}');
     }
 
     // update cart view
     void updateCartView() {
+      print('Re triggered');
       updateBasketNumber();
       updateItemsList.value = !updateItemsList.value;
     }
-
-    useEffect(() {
-      // load banners
-      if (controller.bannersList.isEmpty) {
-        controller.fetchBannerInfo();
-      }
-
-      if (controller.categoriesList.isEmpty) {
-        controller.fetchCategories().then((value) {
-          currentSelectedCategoryIndex.value = 0;
-        });
-      }
-      return null;
-    }, []);
 
     void updateSelectedCategoryItem(item) {
       final previousSelectedIndex = controller.categoriesList
@@ -255,17 +260,17 @@ class HomeView extends HookWidget {
       controller.categoriesList.value[newSelectedIndex].isSelected = true;
     }
 
-    return VisibilityDetector(
-      key: const Key('my-widget-key'),
-      onVisibilityChanged: (info) =>
-          updateBasketNumber(updateCategorySelection: true),
-      child: Scaffold(
-        backgroundColor: AppColors.blackColor,
-        body: SafeArea(
-          child: Column(
+    return Scaffold(
+      backgroundColor: AppColors.blackColor,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: SafeArea(
+              child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -277,96 +282,87 @@ class HomeView extends HookWidget {
                         radius: 20,
                       ),
                     ),
-                    totalCartItems.value > 0
-                        ? InkWell(
-                            onTap: () =>
-                                GoNavigation.to(() => const CartView()),
-                            child: badges.Badge(
-                              badgeStyle: badges.BadgeStyle(
-                                  badgeColor: AppColors.orangeColor,
-                                  shape: BadgeShape.circle),
-                              badgeContent: Text(
-                                  totalCartItems.value.toString(),
-                                  style: const TextStyle(color: Colors.white)),
-                              child: Icon(
-                                Icons.shopping_cart,
-                                size: 30,
-                                color: AppColors.lightWhiteColor,
-                              ),
-                            ),
-                          )
-                        : Container(),
+                    InkWell(
+                      onTap: () =>
+                          GoNavigation.to(() => const CartView()).then((value) {
+                        updateBasketNumber();
+                      }),
+                      child: badges.Badge(
+                        badgeStyle: badges.BadgeStyle(
+                            badgeColor: AppColors.orangeColor,
+                            shape: BadgeShape.circle),
+                        badgeContent: Text(totalCartItems.value.toString(),
+                            style: const TextStyle(color: Colors.white)),
+                        child: Icon(
+                          Icons.shopping_cart,
+                          size: 30,
+                          color: AppColors.lightWhiteColor,
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
               Container(
-                  height: 150,
-                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: Swiper(
-                    itemBuilder: ((context, index) {
-                      return fetchBannerView(
-                          controller.bannersList.value[index]);
-                    }),
-                    itemCount: controller.bannersList.value.length,
-                    onIndexChanged: ((value) =>
-                        currentBannerIndex.value = value),
-                    autoplay: true,
-                    viewportFraction: 0.88,
-                    autoplayDelay: 7000,
-                    autoplayDisableOnInteraction: false,
+                  height: 175,
+                  margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  child: PageView.builder(
+                    onPageChanged: (value) => currentBannerIndex.value = value,
+                    itemCount: bannersList.value.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = bannersList.value[index];
+                      return fetchBannerItem(item);
+                    },
                   )),
-              Obx(() => controller.bannersList.value.isNotEmpty
+              bannersList.value.isNotEmpty
                   ? Container(
                       margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: DotsIndicator(
-                        dotsCount: controller.bannersList.value.length,
+                        dotsCount: bannersList.value.length,
                         position: currentBannerIndex.value.toDouble(),
                         decorator:
                             DotsDecorator(color: AppColors.lightWhiteColor),
                       ),
                     )
-                  : Container()),
+                  : Container(),
               Container(
                 margin: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                 alignment: Alignment.topLeft,
                 child: AppWidgets.appText(AppStrings.categories,
-                    fontSize: 20,
+                    fontSize: 15,
                     color: AppColors.textColor,
                     fontWeight: FontWeight.w600),
               ),
-              Obx(
-                () => Container(
-                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  height: 100,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.categoriesList.value.length,
-                      itemBuilder: ((context, index) {
-                        final item = controller.categoriesList.value[index];
-                        return fetchCategoryItem(
-                          item,
-                          (id) => updateSelectedCategoryItem(item),
-                          currentSelectedCategoryIndex.value,
-                        );
-                      })),
-                ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                height: 100,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.categoriesList.value.length,
+                    itemBuilder: ((context, index) {
+                      final item = controller.categoriesList.value[index];
+                      return fetchCategoryItem(
+                        item,
+                        (id) => updateSelectedCategoryItem(item),
+                        currentSelectedCategoryIndex.value,
+                      );
+                    })),
               ),
               Container(
                 alignment: Alignment.topLeft,
-                margin: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                margin: const EdgeInsets.fromLTRB(20, 5, 0, 10),
                 child: AppWidgets.appText(AppStrings.products,
-                    fontSize: 20,
-                    isBold: true,
+                    fontSize: 15,
                     color: AppColors.textColor,
                     fontWeight: FontWeight.w600),
               ),
               Expanded(
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                   child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: (.35 / .4)),
+                              crossAxisCount: 2, childAspectRatio: (.30 / .4)),
                       itemCount: currentSelectedCategoryIndex.value == -1
                           ? 0
                           : controller
@@ -379,14 +375,14 @@ class HomeView extends HookWidget {
                             .categoriesList[currentSelectedCategoryIndex.value]
                             .items[index];
                         return Obx(
-                          () => fetchItemView(item, () => updateCartView(),
+                          () => fetchProductItem(item, () => updateCartView(),
                               updateItemsList.value),
                         );
                       })),
                 ),
               ),
             ],
-          ),
+          )),
         ),
       ),
     );

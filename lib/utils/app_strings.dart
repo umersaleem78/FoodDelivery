@@ -122,4 +122,5 @@ class AppStrings {
   static String removedFromFavourites = "Removed from favourites";
   static String addedInFavourites = "Added in favourites";
   static String favourites = "Favourites";
+  static String noFavouritesFound = "No favourites found";
 }

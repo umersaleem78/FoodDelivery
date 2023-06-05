@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:food_app/controllers/favourites_controller.dart';
 import 'package:food_app/models/items_model.dart';
+import 'package:food_app/state/response_state.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:get/get.dart';
 
@@ -90,53 +91,89 @@ class FavouriteView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FavouritesController>();
+    final state = useState(ResponseState.loading);
+    final favouritesList = useState([]);
+    final fetchUpdatedList = useState(false);
+
     useEffect(() {
-      controller.fetchFavourites();
-      return null;
-    }, [null]);
+      state.value = ResponseState.loading;
+      controller.fetchFavourites().then((value) {
+        if (value != null && value.length > 0) {
+          favouritesList.value = value;
+          state.value = ResponseState.completed;
+        } else {
+          state.value = ResponseState.noDataFound;
+        }
+      });
+    }, [fetchUpdatedList]);
+
+    void updateFavouritesList(String id) {
+      for (var i = 0; i < favouritesList.value.length; i++) {
+        final item = favouritesList.value[i];
+        if (item.id == id) {
+          favouritesList.value.removeAt(i);
+        }
+      }
+      if (favouritesList.value.isEmpty) {
+        state.value = ResponseState.noDataFound;
+      }
+      fetchUpdatedList.value = !fetchUpdatedList.value;
+    }
+
+    Widget fetchNoDataFoundView() {
+      return Center(
+          child: AppWidgets.appText(AppStrings.noFavouritesFound,
+              color: AppColors.textColor,
+              fontSize: 25,
+              fontWeight: FontWeight.w600));
+    }
+
+    Widget fetchFavouriteView() {
+      return Column(children: [
+        Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            child: AppWidgets.appTextWithoutClick(AppStrings.favourites,
+                color: AppColors.textColor,
+                fontSize: 20,
+                fontWeight: FontWeight.w500)),
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(top: 50),
+            child: ListView.builder(
+              itemCount: favouritesList.value.length,
+              itemBuilder: (BuildContext context, int index) {
+                final model = favouritesList.value[index];
+                return fetchFavouriteItem(model, (model) async {
+                  await controller.removeFromFavourites(model);
+                  updateFavouritesList(model.id);
+                });
+              },
+            ),
+          ),
+        )
+      ]);
+    }
+
+    Widget fetchMainView(ResponseState status) {
+      if (status == ResponseState.loading) {
+        return Center(
+          child: CircularProgressIndicator(
+            color: AppColors.orangeColor,
+          ),
+        );
+      } else if (status == ResponseState.completed) {
+        return fetchFavouriteView();
+      }
+      // default:: no data found state
+      return fetchNoDataFoundView();
+    }
 
     return Scaffold(
       backgroundColor: AppColors.blackColor,
       body: SafeArea(
           // ignore: invalid_use_of_protected_member
-          child: Column(
-        children: [
-          Container(
-              alignment: Alignment.topLeft,
-              margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: AppWidgets.appTextWithoutClick(AppStrings.favourites,
-                  color: AppColors.textColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500)),
-          // ignore: invalid_use_of_protected_member
-          controller.favouritesList.value.isNotEmpty
-              ? Obx(
-                  () => Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 50),
-                      child: ListView.builder(
-                        // ignore: invalid_use_of_protected_member
-                        itemCount: controller.favouritesList.value.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          // ignore: invalid_use_of_protected_member
-                          final model = controller.favouritesList.value[index];
-                          return fetchFavouriteItem(model, (model) {
-                            controller.removeFromFavourites(model);
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                )
-              : Expanded(
-                  child: Center(
-                      child: AppWidgets.appText('No favourites found',
-                          color: AppColors.textColor,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600)),
-                )
-        ],
-      )),
+          child: fetchMainView(state.value)),
     );
   }
 }
