@@ -137,4 +137,5 @@ class AppStrings {
   static String submit = "Submit";
   static String pleaseSelectReason = "Please select reason";
   static String orderCancelledSuccessful = "Order cancelled successfull";
+  static String cancelReason = "Cancel reason";
 }

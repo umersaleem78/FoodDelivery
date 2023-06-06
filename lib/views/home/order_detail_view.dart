@@ -174,7 +174,24 @@ class OrderDetailView extends HookWidget {
                             ],
                           ),
                         )
-                      : Container(),
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              alignment: Alignment.topLeft,
+                              child: AppWidgets.appText(AppStrings.cancelReason,
+                                  color: AppColors.textColor,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                            Container(
+                              alignment: Alignment.topLeft,
+                              child: AppWidgets.appText(
+                                  orderItem.cancellationReason,
+                                  color: AppColors.lightWhiteColor,
+                                  fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        ),
                 ],
               ),
             ),
