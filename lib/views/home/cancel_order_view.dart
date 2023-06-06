@@ -56,7 +56,6 @@ class CancelOrderView extends HookWidget {
         useState(CancelOrderModel(id: -1, name: "", isSelected: false));
 
     void callCancelOrderApi() {
-      print('Selected reason => ${selectedReasonModel.value}');
       if (selectedReasonModel.value.id != -1) {
         // status id for 'other'
         if (selectedReasonModel.value.id == 5) {
@@ -80,7 +79,6 @@ class CancelOrderView extends HookWidget {
           item.isSelected = false;
         }
       }
-      print('Selection change => ${selectedReasonModel.value}');
       reasonsList.value = reasonsList.value;
       updateReasonsView.value = !updateReasonsView.value;
     }
