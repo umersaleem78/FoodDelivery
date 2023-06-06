@@ -6,6 +6,7 @@ import 'package:food_app/utils/go_navigation.dart';
 import 'package:food_app/views/home/cart_view.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
+import '../models/cancel_order_model.dart';
 import 'app_strings.dart';
 
 class AppUtils {
@@ -69,5 +70,20 @@ class AppUtils {
 
   static void shareApp() {
     Share.share(AppStrings.appShareMessage);
+  }
+
+  static List<CancelOrderModel> fetchCancelOrdersList() {
+    List<CancelOrderModel> list = [];
+    list.add(CancelOrderModel(
+        id: 1, name: AppStrings.waitingForLongTime, isSelected: true));
+    list.add(CancelOrderModel(
+        id: 2, name: AppStrings.unableToContactRider, isSelected: false));
+    list.add(CancelOrderModel(
+        id: 3, name: AppStrings.wrongAddressShown, isSelected: false));
+    list.add(CancelOrderModel(
+        id: 4, name: AppStrings.priceNotReasonable, isSelected: false));
+    list.add(CancelOrderModel(
+        id: 5, name: AppStrings.justCancel, isSelected: false));
+    return list;
   }
 }

@@ -12,6 +12,7 @@ class OrderModel {
   String? orderStatus;
   String? orderDate;
   String? orderTime;
+  String? cancellationReason;
 
   OrderModel(
       {this.orderId,
@@ -22,7 +23,8 @@ class OrderModel {
       this.totalPrice,
       this.orderStatus,
       this.orderDate,
-      this.orderTime});
+      this.orderTime,
+      this.cancellationReason});
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     userModel = UserModel.fromJson(json['userModel']);
@@ -36,6 +38,7 @@ class OrderModel {
     orderStatus = json['orderStatus'];
     orderDate = json['orderDate'];
     orderTime = json['orderTime'];
+    cancellationReason = json['cancellationReason'];
   }
 
   Map<String, dynamic> toJson() {
@@ -49,6 +52,7 @@ class OrderModel {
     data['orderStatus'] = orderStatus;
     data['orderDate'] = orderDate;
     data['orderTime'] = orderTime;
+    data['cancellationReason'] = cancellationReason;
     return data;
   }
 }

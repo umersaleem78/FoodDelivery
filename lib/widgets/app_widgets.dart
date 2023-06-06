@@ -35,7 +35,8 @@ class AppWidgets {
       {Color color = Colors.black,
       double fontSize = 15,
       bool isBold = false,
-      bool isEllipsisText = false,FontWeight fontWeight = FontWeight.w400}) {
+      bool isEllipsisText = false,
+      FontWeight fontWeight = FontWeight.w400}) {
     return Text(
       text,
       style: TextStyle(
@@ -102,7 +103,8 @@ class AppWidgets {
               alignment: Alignment.center,
               child: Text(
                 hintText,
-                style: TextStyle(color: AppColors.lightWhiteColor, fontSize: 15),
+                style:
+                    TextStyle(color: AppColors.lightWhiteColor, fontSize: 15),
               ),
             ),
           ),
@@ -128,6 +130,29 @@ class AppWidgets {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  static Widget appFieldMoreText(
+      String hintText, TextEditingController? controller,
+      {double fontSize = 15,
+      TextInputType inputType = TextInputType.text,
+      int maxLines = 4}) {
+    return Container(
+      height: 100,
+      margin: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+      child: Container(
+        color: AppColors.lightBlackColor,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: TextField(
+          controller: controller,
+          cursorColor: AppColors.orangeColor,
+          keyboardType: inputType,
+          maxLines: maxLines,
+          decoration: const InputDecoration(border: InputBorder.none),
+          style: TextStyle(fontSize: fontSize, color: AppColors.textColor),
+        ),
       ),
     );
   }
@@ -273,9 +298,10 @@ class AppWidgets {
                 maxLines: maxLines,
                 decoration: InputDecoration(
                     suffixIcon: IconButton(
-                      icon: Icon(obscureText
-                          ? Icons.visibility
-                          : Icons.visibility_off,color: AppColors.orangeColor,),
+                      icon: Icon(
+                        obscureText ? Icons.visibility : Icons.visibility_off,
+                        color: AppColors.orangeColor,
+                      ),
                       onPressed: () => callBack(),
                     ),
                     border: InputBorder.none),
@@ -290,7 +316,11 @@ class AppWidgets {
 
   static Widget addIconButton(Function callback) {
     return IconButton(
-        onPressed: () => callback(), icon: Icon(Icons.add_circle,color: AppColors.orangeColor,));
+        onPressed: () => callback(),
+        icon: Icon(
+          Icons.add_circle,
+          color: AppColors.orangeColor,
+        ));
   }
 
   static Widget removeIconButton(Function callback) {
@@ -305,7 +335,8 @@ class AppWidgets {
     return Container(
       width: 110,
       margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-      decoration: BoxDecoration(color: AppColors.lightGrey,borderRadius: BorderRadius.circular(8)),
+      decoration: BoxDecoration(
+          color: AppColors.lightGrey, borderRadius: BorderRadius.circular(8)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -334,7 +365,9 @@ class AppWidgets {
               width: 30,
               alignment: Alignment.center,
               child: AppWidgets.appText(number.value.toString(),
-                  fontSize: 18, color: AppColors.orangeColor,fontWeight: FontWeight.w400),
+                  fontSize: 18,
+                  color: AppColors.orangeColor,
+                  fontWeight: FontWeight.w400),
             ),
           ),
           Container(
@@ -375,8 +408,10 @@ class AppWidgets {
                   MaterialStateProperty.all(bgColor ?? AppColors.orangeColor)),
           child: Text(
             text,
-            style:  TextStyle(
-                color: AppColors.lightWhiteColor, fontSize: 16, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                color: AppColors.lightWhiteColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w500),
           ),
         ));
   }
@@ -394,7 +429,8 @@ class AppWidgets {
                 Icons.arrow_back_ios_new_rounded,
                 color: AppColors.orangeColor,
               )),
-          appText(title, fontSize: 20, color: textColor,fontWeight: FontWeight.w500)
+          appText(title,
+              fontSize: 20, color: textColor, fontWeight: FontWeight.w500)
         ],
       ),
     );

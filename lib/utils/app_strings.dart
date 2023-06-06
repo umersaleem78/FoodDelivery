@@ -131,4 +131,10 @@ class AppStrings {
   static String wrongAddressShown = "Wrong address shown";
   static String priceNotReasonable = "The price is not reasonable";
   static String justCancel = "I just want to cancel";
+
+  static String otherReason = "Other reason";
+  static String describeHere = "Describe here";
+  static String submit = "Submit";
+  static String pleaseSelectReason = "Please select reason";
+  static String orderCancelledSuccessful = "Order cancelled successfull";
 }

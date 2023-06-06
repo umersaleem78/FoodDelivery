@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:food_app/constants/app_constants.dart';
 import 'package:food_app/models/items_model.dart';
 import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_utils.dart';
@@ -146,31 +147,34 @@ class OrderDetailView extends HookWidget {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      final args = {'data': orderItem.orderId};
-                      Get.to(() => const CancelOrderView(), arguments: args);
-                    },
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          child: Icon(
-                            Icons.cancel,
-                            color: AppColors.orangeColor,
+                  orderItem.orderStatus != AppConstants.statusCancelled
+                      ? InkWell(
+                          onTap: () {
+                            final args = {'data': orderItem.orderId};
+                            Get.to(() => const CancelOrderView(),
+                                arguments: args);
+                          },
+                          child: Row(
+                            children: [
+                              const Spacer(),
+                              Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                child: Icon(
+                                  Icons.cancel,
+                                  color: AppColors.orangeColor,
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                child: Icon(
+                                  Icons.arrow_right,
+                                  color: AppColors.orangeColor,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          child: Icon(
-                            Icons.arrow_right,
-                            color: AppColors.orangeColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        )
+                      : Container(),
                 ],
               ),
             ),

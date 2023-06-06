@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:food_app/controllers/cancel_order_controller.dart';
 import 'package:food_app/controllers/cart_controller.dart';
 import 'package:food_app/controllers/checkout_controller.dart';
 import 'package:food_app/controllers/email_verification_controller.dart';
@@ -60,6 +61,7 @@ void main() async {
   Get.put(EmailVerificationController());
   Get.put(OrderTrackController());
   Get.put(FavouritesController());
+  Get.put(CancelOrderController());
   runApp(const MyApp());
 }
 
